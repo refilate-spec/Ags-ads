@@ -1,4 +1,4 @@
-<script>//<![CDATA[
+
 
 const DK_Ad_Config = {
 inventory: [  
@@ -370,4 +370,4 @@ window.onload = () => DK_Engine.init();
                 }, 1000);
             })();
         
-        </script>
+        
