@@ -232,7 +232,7 @@ inventory: [
   
     timerSeconds: 10,
     refreshRate: 20000,
-    popGapMinutes: 0
+    popGapMinutes: 30000
 };
 
 const DK_Engine = {
