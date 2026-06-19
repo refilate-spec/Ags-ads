@@ -236,103 +236,154 @@ inventory: [
 };
 
 const DK_Engine = {
+    currentAds: {},
+    popupOpen: false,
+    timers: {},
+
     init() {
+        // Cleanup active timers before re-init
+        this.clearAllTimers();
+        
         this.renderBanners();
         this.checkAndShowPopup();
         this.setupOutsideClick();
-        setInterval(() => this.renderBanners(), DK_Ad_Config.refreshRate);
-        setInterval(() => this.checkAndShowPopup(), 60000); 
+
+        // Safe Intervals
+        this.timers.bannerRefresh = setInterval(() => this.renderBanners(), DK_Ad_Config.refreshRate || 20000);
+        this.timers.popupCheck = setInterval(() => this.checkAndShowPopup(), 60000);
     },
-    
-    shuffle(array) { 
-        return array.sort(() => Math.random() - 0.5); 
+
+    clearAllTimers() {
+        Object.values(this.timers).forEach(clearInterval);
+    },
+
+    shuffle(arr) {
+        return [...arr].sort(() => Math.random() - 0.5);
     },
 
     renderBanners() {
-        const slots = document.querySelectorAll('.dk-banner-slot');
-        let ads = this.shuffle(DK_Ad_Config.inventory.filter(a => a.type === 'banner'));
-        slots.forEach((slot, i) => {
-            slot.style.opacity = '0';
-            setTimeout(() => {
-                const ad = ads[i % ads.length];
-                slot.innerHTML = ad.html;
-                slot.style.opacity = '1';
-            }, 800);
+        const slots = document.querySelectorAll(".dk-banner-slot");
+        if (!slots.length) return;
+
+        let ads = DK_Ad_Config.inventory.filter(a => a.type === "banner");
+        if (!ads.length) return;
+
+        ads = this.shuffle(ads);
+
+        slots.forEach((slot, index) => {
+            const category = slot.dataset.category;
+            let available = category 
+                ? ads.filter(ad => ad.category && category.split(",").map(x => x.trim()).some(c => ad.category.includes(c)))
+                : ads;
+
+            if (!available.length) available = ads;
+
+            // Avoid same ad as previous render for better UX
+            let old = this.currentAds[index];
+            let ad = available.find(x => x !== old) || available[0];
+            
+            this.currentAds[index] = ad;
+            this.renderBannerSlot(slot, ad);
         });
     },
 
+    renderBannerSlot(slot, ad) {
+        slot.style.transition = "opacity 0.5s ease-in-out";
+        slot.style.opacity = "0";
+        
+        setTimeout(() => {
+            slot.innerHTML = ad.html;
+            slot.style.opacity = "1";
+            this.trackImpression(ad);
+        }, 500);
+    },
+
+    trackImpression(ad) {
+        // Debounced Impression Logic
+        ad.views = (ad.views || 0) + 1;
+        // Optional: Send to server/analytics here
+    },
+
     checkAndShowPopup() {
-        const lastSeen = localStorage.getItem('dk_pop_last_seen');
-        const now = new Date().getTime();
-        const gap = DK_Ad_Config.popGapMinutes * 60 * 1000;
-        if (!lastSeen || (now - lastSeen) > gap) { 
-            this.renderPopup(); 
+        if (this.popupOpen) return;
+
+        const last = parseInt(localStorage.getItem("dk_pop_last_seen") || 0);
+        const gap = (DK_Ad_Config.popGapMinutes || 120) * 60000;
+
+        if (Date.now() - last > gap) {
+            this.renderPopup();
         }
     },
 
     renderPopup() {
-    // 1. Check karein ki overlay element page par hai ya nahi
-    const overlay = document.getElementById('dk-pop-overlay');
-    const content = document.getElementById('dk-pop-content');
-    
-    // Agar element page par nahi hai, toh function yahi se ruk jayega
-    // aur banner ads par koi asar nahi padega.
-    if (!overlay || !content) return; 
+        const overlay = document.getElementById("dk-pop-overlay");
+        const content = document.getElementById("dk-pop-content");
+        if (!overlay || !content) return;
 
-    const popups = DK_Ad_Config.inventory.filter(a => a.type === 'popup');
-    if (popups.length === 0) return;
+        const popups = DK_Ad_Config.inventory.filter(a => a.type === "popup");
+        if (!popups.length) return;
 
-    const randomPop = popups[Math.floor(Math.random() * popups.length)];
-    const closeBtn = document.getElementById('dk-close-btn');
+        const popup = popups[Math.floor(Math.random() * popups.length)];
 
-    setTimeout(() => {
-        content.innerHTML = randomPop.html;
-        overlay.style.display = 'flex';
-        // Timer sirf tabhi start karein agar button mil jaye
-        if (closeBtn) this.startTimer(closeBtn);
-    }, 2000);
-},
+        setTimeout(() => {
+            content.innerHTML = popup.html;
+            overlay.style.display = "flex";
+            this.popupOpen = true;
 
+            const btn = document.getElementById("dk-close-btn");
+            if (btn) this.startTimer(btn);
+        }, 2000);
+    },
 
     startTimer(btn) {
-        let timeLeft = DK_Ad_Config.timerSeconds;
-        btn.innerText = timeLeft;
-        btn.style.pointerEvents = 'none';
-        btn.style.background = '#555';
-        
-        const countdown = setInterval(() => {
-            timeLeft--;
-            btn.innerText = timeLeft;
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                btn.innerText ="x";
-                btn.style.pointerEvents = 'auto';
-                btn.style.background = '#ff3b30';
+        if (this.timers.popup) clearInterval(this.timers.popup);
+
+        let time = DK_Ad_Config.timerSeconds || 5;
+        btn.innerText = time;
+        btn.style.pointerEvents = "none";
+
+        this.timers.popup = setInterval(() => {
+            time--;
+            btn.innerText = time;
+            if (time <= 0) {
+                clearInterval(this.timers.popup);
+                btn.innerText = "×";
+                btn.style.pointerEvents = "auto";
                 btn.onclick = () => this.closePopup();
             }
         }, 1000);
     },
 
     closePopup() {
-        const overlay = document.getElementById('dk-pop-overlay');
-        overlay.style.display = 'none';
-        localStorage.setItem('dk_pop_last_seen', new Date().getTime());
-        // Mobile vibration for premium feel
-        if (navigator.vibrate) navigator.vibrate(50);
+        const overlay = document.getElementById("dk-pop-overlay");
+        if (overlay) overlay.style.display = "none";
+        
+        this.popupOpen = false;
+        try {
+            localStorage.setItem("dk_pop_last_seen", Date.now());
+            if (navigator.vibrate) navigator.vibrate(50);
+        } catch (e) {
+            console.warn("Storage access denied");
+        }
     },
 
     setupOutsideClick() {
-        const overlay = document.getElementById('dk-pop-overlay');
-        const closeBtn = document.getElementById('dk-close-btn');
-        overlay.addEventListener('click', (e) => {
-            // Agar timer khatam ho gaya hai aur user bahar click kare toh band ho jaye
-            if (e.target === overlay && closeBtn.innerText === "×") {
+        const overlay = document.getElementById("dk-pop-overlay");
+        if (!overlay) return;
+
+        overlay.onclick = (e) => {
+            const btn = document.getElementById("dk-close-btn");
+            if (e.target === overlay && btn && btn.innerText === "×") {
                 this.closePopup();
             }
-        });
+        };
     }
 };
 
+
+
+
+	    
 document.addEventListener('DOMContentLoaded', () => {
     DK_Engine.init();
 });
