@@ -271,20 +271,28 @@ const DK_Engine = {
     },
 
     renderPopup() {
-        const popups = DK_Ad_Config.inventory.filter(a => a.type === 'popup');
-        const randomPop = popups[Math.floor(Math.random() * popups.length)];
-        const overlay = document.getElementById('dk-pop-overlay');
-        const content = document.getElementById('dk-pop-content');
-        const closeBtn = document.getElementById('dk-close-btn');
+    // 1. Check karein ki overlay element page par hai ya nahi
+    const overlay = document.getElementById('dk-pop-overlay');
+    const content = document.getElementById('dk-pop-content');
+    
+    // Agar element page par nahi hai, toh function yahi se ruk jayega
+    // aur banner ads par koi asar nahi padega.
+    if (!overlay || !content) return; 
 
-        if (overlay && overlay.style.display !== 'flex') {
-            setTimeout(() => {
-                content.innerHTML = randomPop.html;
-                overlay.style.display = 'flex';
-                this.startTimer(closeBtn);
-            }, 2000);
-        }
-    },
+    const popups = DK_Ad_Config.inventory.filter(a => a.type === 'popup');
+    if (popups.length === 0) return;
+
+    const randomPop = popups[Math.floor(Math.random() * popups.length)];
+    const closeBtn = document.getElementById('dk-close-btn');
+
+    setTimeout(() => {
+        content.innerHTML = randomPop.html;
+        overlay.style.display = 'flex';
+        // Timer sirf tabhi start karein agar button mil jaye
+        if (closeBtn) this.startTimer(closeBtn);
+    }, 2000);
+},
+
 
     startTimer(btn) {
         let timeLeft = DK_Ad_Config.timerSeconds;
@@ -325,8 +333,10 @@ const DK_Engine = {
     }
 };
 
-window.onload = () => DK_Engine.init();
-              
+document.addEventListener('DOMContentLoaded', () => {
+    DK_Engine.init();
+});
+
   
 
 
