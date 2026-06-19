@@ -394,30 +394,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             (function(){
-                const stroke = document.getElementById('circle-stroke');
-                const btn = document.getElementById('custom-lock-btn');
-                let time = 10;
-                setTimeout(() => { stroke.style.strokeDasharray = '100, 100'; }, 100);
-                const count = setInterval(() => {
-                    time--;
-                    btn.innerText = time;
-                    if(time <= 0) {
-                        clearInterval(count);
-                        btn.innerHTML = "×";
-                        btn.style.background = "#ff3b30";
-                        btn.style.color = "#fff";
-                        btn.style.cursor = "pointer";
-                        btn.onclick = () => document.getElementById('dk-pop-overlay').style.display='none';
-                    }
-                }, 1000);
-            })();
+                (function(){
 
- setTimeout(() => { document.getElementById('p-bar-fill').style.width = '100%'; }, 100);
+const stroke=document.getElementById('circle-stroke');
+const btn=document.getElementById('custom-lock-btn');
 
+if(!stroke || !btn) return;
+
+let time=10;
+
+setTimeout(()=>{
+ stroke.style.strokeDasharray='100,100';
+},100);
+
+const count=setInterval(()=>{
+ time--;
+ btn.innerText=time;
+
+ if(time<=0){
+  clearInterval(count);
+  btn.innerHTML="×";
+ }
+
+},1000);
+
+})();
+				
+
+ setTimeout(() => {
+ const bar = document.getElementById('p-bar-fill');
+ if(bar){
+   bar.style.width='100%';
+ }
+},100);
 
 (function(){
-                document.getElementById('top-bar-fill').style.width = '100%';
-                let sec = 10;
+                const top=document.getElementById('top-bar-fill');
+
+if(top){
+ top.style.width='100%';
+}  
+	let sec = 10;
                 const box = document.getElementById('counting-box');
                 const timer = setInterval(() => {
                     sec--;
