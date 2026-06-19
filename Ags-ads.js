@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-            (function(){
+            
                 (function(){
 
 const stroke=document.getElementById('circle-stroke');
@@ -421,18 +421,15 @@ const count=setInterval(()=>{
 })();
 				
 
- setTimeout(() => {
+ setTimeout(() => { 
  const bar = document.getElementById('p-bar-fill');
- if(bar){
-   bar.style.width='100%';
- }
+ if(bar) bar.style.width='100%';
 },100);
-
 (function(){
-                const top=document.getElementById('top-bar-fill');
-
+                const top = document.getElementById('top-bar-fill');
 if(top){
  top.style.width='100%';
+}
 }  
 	let sec = 10;
                 const box = document.getElementById('counting-box');
