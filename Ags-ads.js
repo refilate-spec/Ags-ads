@@ -242,7 +242,7 @@ const DK_Engine = {
 
     init() {
         // Cleanup active timers before re-init
-        this.clearAllTimers();
+        
         
         this.renderBanners();
         this.checkAndShowPopup();
