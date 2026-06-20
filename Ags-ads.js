@@ -236,148 +236,366 @@ inventory: [
 };
 
 const DK_Engine = {
-    currentAds: {},
-    popupOpen: false,
-    timers: {},
 
-    init() {
-        // Cleanup active timers before re-init
-        
-        
+    currentAds: {},
+
+    popupOpen: false,
+
+    bannerTimer: null,
+    popupCheckTimer: null,
+    popupTimer: null,
+
+
+    init(){
+
         this.renderBanners();
+
+        // Banner independent timer
+        this.bannerTimer = setInterval(()=>{
+            this.renderBanners();
+        }, DK_Ad_Config.refreshRate || 20000);
+
+
+        // Popup independent timer
         this.checkAndShowPopup();
+
+        this.popupCheckTimer = setInterval(()=>{
+            this.checkAndShowPopup();
+        },60000);
+
+
         this.setupOutsideClick();
 
-        // Safe Intervals
-        this.timers.bannerRefresh = setInterval(() => this.renderBanners(), DK_Ad_Config.refreshRate || 20000);
-        this.timers.popupCheck = setInterval(() => this.checkAndShowPopup(), 60000);
     },
 
-    clearAllTimers() {
-        Object.values(this.timers).forEach(clearInterval);
+
+    shuffle(arr){
+        return [...arr].sort(()=>Math.random()-0.5);
     },
 
-    shuffle(arr) {
-        return [...arr].sort(() => Math.random() - 0.5);
-    },
 
-    renderBanners() {
-        const slots = document.querySelectorAll(".dk-banner-slot");
-        if (!slots.length) return;
+    renderBanners(){
 
-        let ads = DK_Ad_Config.inventory.filter(a => a.type === "banner");
-        if (!ads.length) return;
+        const slots=document.querySelectorAll(".dk-banner-slot");
 
-        ads = this.shuffle(ads);
+        if(!slots.length) return;
 
-        slots.forEach((slot, index) => {
-            const category = slot.dataset.category;
-            let available = category 
-                ? ads.filter(ad => ad.category && category.split(",").map(x => x.trim()).some(c => ad.category.includes(c)))
-                : ads;
 
-            if (!available.length) available = ads;
+        let ads=DK_Ad_Config.inventory.filter(
+            a=>a.type==="banner"
+        );
 
-            // Avoid same ad as previous render for better UX
-            let old = this.currentAds[index];
-            let ad = available.find(x => x !== old) || available[0];
-            
-            this.currentAds[index] = ad;
-            this.renderBannerSlot(slot, ad);
+
+        if(!ads.length) return;
+
+
+        ads=this.shuffle(ads);
+
+
+        slots.forEach((slot,index)=>{
+
+
+            const category=slot.dataset.category;
+
+
+            let available = category
+            ? ads.filter(ad =>
+                ad.category &&
+                category.split(",")
+                .map(x=>x.trim())
+                .some(c=>ad.category.includes(c))
+            )
+            : ads;
+
+
+            if(!available.length)
+                available=ads;
+
+
+
+            let old=this.currentAds[index];
+
+
+            let ad=
+            available.find(x=>x!==old)
+            ||
+            available[0];
+
+
+
+            this.currentAds[index]=ad;
+
+
+            this.renderBannerSlot(slot,ad);
+
+
         });
+
     },
 
-    renderBannerSlot(slot, ad) {
-        slot.style.transition = "opacity 0.5s ease-in-out";
-        slot.style.opacity = "0";
-        
-        setTimeout(() => {
-            slot.innerHTML = ad.html;
-            slot.style.opacity = "1";
+
+    renderBannerSlot(slot,ad){
+
+
+        slot.style.transition="opacity .5s";
+
+        slot.style.opacity="0";
+
+
+        setTimeout(()=>{
+
+
+            slot.innerHTML=ad.html;
+
+
+            requestAnimationFrame(()=>{
+
+                slot.style.opacity="1";
+
+            });
+
+
             this.trackImpression(ad);
-        }, 500);
+
+
+        },500);
+
+
     },
 
-    trackImpression(ad) {
-        // Debounced Impression Logic
-        ad.views = (ad.views || 0) + 1;
-        // Optional: Send to server/analytics here
+
+    trackImpression(ad){
+
+        ad.views=(ad.views||0)+1;
+
     },
 
-    checkAndShowPopup() {
-        if (this.popupOpen) return;
 
-        const last = parseInt(localStorage.getItem("dk_pop_last_seen") || 0);
-        const gap = (DK_Ad_Config.popGapMinutes || 120) * 60000;
 
-        if (Date.now() - last > gap) {
+    checkAndShowPopup(){
+
+
+        if(this.popupOpen)
+        return;
+
+
+
+        let last=
+        parseInt(localStorage.getItem("dk_pop_last_seen")||0);
+
+
+
+        let gap=
+        (DK_Ad_Config.popGapMinutes||120)
+        *
+        60000;
+
+
+
+        if(Date.now()-last > gap){
+
             this.renderPopup();
+
         }
+
+
     },
 
-    renderPopup() {
-        const overlay = document.getElementById("dk-pop-overlay");
-        const content = document.getElementById("dk-pop-content");
-        if (!overlay || !content) return;
 
-        const popups = DK_Ad_Config.inventory.filter(a => a.type === "popup");
-        if (!popups.length) return;
 
-        const popup = popups[Math.floor(Math.random() * popups.length)];
+    renderPopup(){
 
-        setTimeout(() => {
-            content.innerHTML = popup.html;
-            overlay.style.display = "flex";
-            this.popupOpen = true;
 
-            const btn = document.getElementById("dk-close-btn");
-            if (btn) this.startTimer(btn);
-        }, 2000);
+        const overlay=
+        document.getElementById("dk-pop-overlay");
+
+
+        const content=
+        document.getElementById("dk-pop-content");
+
+
+        if(!overlay || !content)
+        return;
+
+
+
+        let popups=
+        DK_Ad_Config.inventory.filter(
+            a=>a.type==="popup"
+        );
+
+
+
+        if(!popups.length)
+        return;
+
+
+
+        let popup=
+        popups[
+            Math.floor(
+                Math.random()*popups.length
+            )
+        ];
+
+
+
+        setTimeout(()=>{
+
+
+            content.innerHTML=popup.html;
+
+
+            overlay.style.display="flex";
+
+
+            this.popupOpen=true;
+
+
+
+            let btn=
+            document.getElementById("dk-close-btn");
+
+
+            if(btn)
+            this.startPopupTimer(btn);
+
+
+
+        },2000);
+
+
+
     },
 
-    startTimer(btn) {
-        if (this.timers.popup) clearInterval(this.timers.popup);
 
-        let time = DK_Ad_Config.timerSeconds || 5;
-        btn.innerText = time;
-        btn.style.pointerEvents = "none";
 
-        this.timers.popup = setInterval(() => {
+    startPopupTimer(btn){
+
+
+        if(this.popupTimer)
+        clearInterval(this.popupTimer);
+
+
+
+        let time=
+        DK_Ad_Config.timerSeconds||5;
+
+
+
+        btn.innerText=time;
+
+
+        btn.style.pointerEvents="none";
+
+
+
+        this.popupTimer=setInterval(()=>{
+
+
             time--;
-            btn.innerText = time;
-            if (time <= 0) {
-                clearInterval(this.timers.popup);
-                btn.innerText = "×";
-                btn.style.pointerEvents = "auto";
-                btn.onclick = () => this.closePopup();
+
+
+            btn.innerText=time;
+
+
+
+            if(time<=0){
+
+
+                clearInterval(this.popupTimer);
+
+
+                btn.innerText="×";
+
+
+                btn.style.pointerEvents="auto";
+
+
+                btn.onclick=()=>{
+
+                    this.closePopup();
+
+                };
+
+
             }
-        }, 1000);
+
+
+        },1000);
+
+
     },
 
-    closePopup() {
-        const overlay = document.getElementById("dk-pop-overlay");
-        if (overlay) overlay.style.display = "none";
-        
-        this.popupOpen = false;
-        try {
-            localStorage.setItem("dk_pop_last_seen", Date.now());
-            if (navigator.vibrate) navigator.vibrate(50);
-        } catch (e) {
-            console.warn("Storage access denied");
-        }
+
+
+    closePopup(){
+
+
+        const overlay=
+        document.getElementById("dk-pop-overlay");
+
+
+
+        if(overlay)
+
+        overlay.style.display="none";
+
+
+
+        this.popupOpen=false;
+
+
+
+        localStorage.setItem(
+            "dk_pop_last_seen",
+            Date.now()
+        );
+
+
+
     },
 
-    setupOutsideClick() {
-        const overlay = document.getElementById("dk-pop-overlay");
-        if (!overlay) return;
 
-        overlay.onclick = (e) => {
-            const btn = document.getElementById("dk-close-btn");
-            if (e.target === overlay && btn && btn.innerText === "×") {
+
+    setupOutsideClick(){
+
+
+        const overlay=
+        document.getElementById("dk-pop-overlay");
+
+
+
+        if(!overlay)
+        return;
+
+
+
+        overlay.onclick=(e)=>{
+
+
+            let btn=
+            document.getElementById("dk-close-btn");
+
+
+
+            if(
+                e.target===overlay &&
+                btn &&
+                btn.innerText==="×"
+            ){
+
                 this.closePopup();
+
             }
+
+
         };
+
+
     }
+
+
 };
 
 
