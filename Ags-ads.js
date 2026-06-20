@@ -65,7 +65,7 @@ inventory: [
             </div>
         </a>
     </div>
-   `
+   `, 
  active: true,
 }, 
 
