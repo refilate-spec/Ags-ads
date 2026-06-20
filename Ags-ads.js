@@ -33,7 +33,7 @@ inventory: [
     `
 }, 
 
-{ id: "AGS-Banner-Premium-V4",  type: "banner",  html: ` <div class="pro-card" style="background:#ffffff; padding:0; overflow:hidden; border:1px solid #eee; display:block;">
+{ id: "AGS-Banner-Premium-V4",  type: "banner", category: ["tech", "gadgets"], html: ` <div class="pro-card" style="background:#ffffff; padding:0; overflow:hidden; border:1px solid #eee; display:block;">
         
         <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 15px; border-bottom:1px solid #f5f5f5;">
             <div style="display:flex; align-items:center; gap:10px;">
@@ -65,7 +65,8 @@ inventory: [
             </div>
         </a>
     </div>
-    `
+   `
+ active: true,
 }, 
 
 { id: "P-Progress-V2",  type: "popup",  html: ` <div class="pop-content" style="text-align:left;">
