@@ -235,432 +235,166 @@ inventory: [
     popGapMinutes: 40000
 };
 
-const DK_Engine = {
-
+ const DK_Engine = {
     currentAds: {},
-
     popupOpen: false,
-
     bannerTimer: null,
     popupCheckTimer: null,
     popupTimer: null,
 
-
-    init(){
-
+    init() {
         this.renderBanners();
+        this.bannerTimer = setInterval(() => this.renderBanners(), DK_Ad_Config.refreshRate || 20000);
 
-        // Banner independent timer
-        this.bannerTimer = setInterval(()=>{
-            this.renderBanners();
-        }, DK_Ad_Config.refreshRate || 20000);
-
-
-        // Popup independent timer
         this.checkAndShowPopup();
-
-        this.popupCheckTimer = setInterval(()=>{
-            this.checkAndShowPopup();
-        },60000);
-
+        this.popupCheckTimer = setInterval(() => this.checkAndShowPopup(), 60000);
 
         this.setupOutsideClick();
-
     },
 
-
-    shuffle(arr){
-        return [...arr].sort(()=>Math.random()-0.5);
-    },
-
-
-    renderBanners(){
-
-        const slots=document.querySelectorAll(".dk-banner-slot");
-
-        if(!slots.length) return;
-
-
-        let ads=DK_Ad_Config.inventory.filter(
-            a=>a.type==="banner"
-        );
-
-
-        if(!ads.length) return;
-
-
-        ads=this.shuffle(ads);
-
-
-        slots.forEach((slot,index)=>{
-
-
-            const category=slot.dataset.category;
-
-
-            let available = category
-            ? ads.filter(ad =>
-                ad.category &&
-                category.split(",")
-                .map(x=>x.trim())
-                .some(c=>ad.category.includes(c))
-            )
-            : ads;
-
-
-            if(!available.length)
-                available=ads;
-
-
-
-            let old=this.currentAds[index];
-
-
-            let ad=
-            available.find(x=>x!==old)
-            ||
-            available[0];
-
-
-
-            this.currentAds[index]=ad;
-
-
-            this.renderBannerSlot(slot,ad);
-
-
+    getActiveAds(type) {
+        const now = Date.now();
+        return DK_Ad_Config.inventory.filter(ad => {
+            if (ad.type !== type || ad.active === false) return false;
+            if (ad.start && now < new Date(ad.start).getTime()) return false;
+            if (ad.end && now > new Date(ad.end).getTime()) return false;
+            return true;
         });
-
     },
 
-
-    renderBannerSlot(slot,ad){
-
-
-        slot.style.transition="opacity .5s";
-
-        slot.style.opacity="0";
-
-
-        setTimeout(()=>{
-
-
-            slot.innerHTML=ad.html;
-
-
-            requestAnimationFrame(()=>{
-
-                slot.style.opacity="1";
-
-            });
-
-
-            this.trackImpression(ad);
-
-
-        },500);
-
-
+    shuffle(arr) {
+        return [...arr].sort(() => Math.random() - 0.5);
     },
 
+    // --- BANNER LOGIC ---
+    renderBanners() {
+        const slots = document.querySelectorAll(".dk-banner-slot");
+        if (!slots.length) return;
 
-    trackImpression(ad){
+        let ads = this.getActiveAds("banner");
+        if (!ads.length) return;
 
-        ad.views=(ad.views||0)+1;
+        slots.forEach((slot, index) => {
+            const category = slot.dataset.category;
+            let list = category ? ads.filter(a => a.category?.includes(category)) : ads;
+            if (!list.length) list = ads;
 
+            let old = this.currentAds[index];
+            let ad = this.shuffle(list).find(x => x.id !== old?.id) || list[0];
+
+            this.currentAds[index] = ad;
+            this.showBanner(slot, ad);
+        });
     },
 
+    showBanner(slot, ad) {
+        slot.style.opacity = "0";
+        setTimeout(() => {
+            slot.innerHTML = ad.html;
+            slot.style.opacity = "1";
+            ad.views = (ad.views || 0) + 1;
+        }, 300);
+    },
 
+    // --- POPUP LOGIC ---
+    checkAndShowPopup() {
+        if (this.popupOpen) return;
+        const last = Number(localStorage.getItem("dk_pop_last_seen") || 0);
+        const gap = (DK_Ad_Config.popGapMinutes || 120) * 60000;
 
-    checkAndShowPopup(){
+        if (Date.now() - last > gap) this.renderPopup();
+    },
 
+    renderPopup() {
+        const overlay = document.getElementById("dk-pop-overlay");
+        const content = document.getElementById("dk-pop-content");
+        if (!overlay || !content) return;
 
-        if(this.popupOpen)
-        return;
+        let popups = this.getActiveAds("popup");
+        if (!popups.length) return;
 
+        let popup = popups[Math.floor(Math.random() * popups.length)];
 
+        setTimeout(() => {
+            content.innerHTML = popup.html;
+            overlay.style.display = "flex";
+            this.popupOpen = true;
+            popup.views = (popup.views || 0) + 1;
 
-        let last=
-        parseInt(localStorage.getItem("dk_pop_last_seen")||0);
+            this.runPopupEffects();
 
+            const btn = document.getElementById("dk-close-btn");
+            if (btn) this.startPopupTimer(btn);
+        }, 1000);
+    },
 
-
-        let gap=
-        (DK_Ad_Config.popGapMinutes||120)
-        *
-        60000;
-
-
-
-        if(Date.now()-last > gap){
-
-            this.renderPopup();
-
+    runPopupEffects() {
+        // Circle Lock Logic
+        const stroke = document.getElementById("circle-stroke");
+        const lock = document.getElementById("custom-lock-btn");
+        if (stroke && lock) {
+            stroke.style.strokeDasharray = "100,100";
+            let sec = DK_Ad_Config.timerSeconds || 10;
+            let t = setInterval(() => {
+                sec--; lock.innerText = sec;
+                if (sec <= 0) { clearInterval(t); lock.innerHTML = "×"; lock.onclick = () => this.closePopup(); }
+            }, 1000);
         }
 
+        // Progress/Top Bars
+        document.querySelectorAll("#p-bar-fill, #top-bar-fill").forEach(b => {
+            setTimeout(() => b.style.width = "100%", 100);
+        });
 
+        // Loading Counter
+        const count = document.getElementById("counting-box");
+        if (count) {
+            let c = DK_Ad_Config.timerSeconds || 10;
+            let t = setInterval(() => {
+                c--; count.innerText = "Loading: " + c + "s";
+                if (c <= 0) { clearInterval(t); count.innerText = "Ready To Close"; }
+            }, 1000);
+        }
     },
 
-
-
-    renderPopup(){
-
-
-        const overlay=
-        document.getElementById("dk-pop-overlay");
-
-
-        const content=
-        document.getElementById("dk-pop-content");
-
-
-        if(!overlay || !content)
-        return;
-
-
-
-        let popups=
-        DK_Ad_Config.inventory.filter(
-            a=>a.type==="popup"
-        );
-
-
-
-        if(!popups.length)
-        return;
-
-
-
-        let popup=
-        popups[
-            Math.floor(
-                Math.random()*popups.length
-            )
-        ];
-
-
-
-        setTimeout(()=>{
-
-
-            content.innerHTML=popup.html;
-
-
-            overlay.style.display="flex";
-
-
-            this.popupOpen=true;
-
-
-
-            let btn=
-            document.getElementById("dk-close-btn");
-
-
-            if(btn)
-            this.startPopupTimer(btn);
-
-
-
-        },2000);
-
-
-
-    },
-
-
-
-    startPopupTimer(btn){
-
-
-        if(this.popupTimer)
+    startPopupTimer(btn) {
         clearInterval(this.popupTimer);
+        let time = DK_Ad_Config.timerSeconds || 10;
+        btn.innerText = time;
+        btn.style.pointerEvents = "none";
 
-
-
-        let time=
-        DK_Ad_Config.timerSeconds||5;
-
-
-
-        btn.innerText=time;
-
-
-        btn.style.pointerEvents="none";
-
-
-
-        this.popupTimer=setInterval(()=>{
-
-
+        this.popupTimer = setInterval(() => {
             time--;
-
-
-            btn.innerText=time;
-
-
-
-            if(time<=0){
-
-
+            btn.innerText = time;
+            if (time <= 0) {
                 clearInterval(this.popupTimer);
-
-
-                btn.innerText="×";
-
-
-                btn.style.pointerEvents="auto";
-
-
-                btn.onclick=()=>{
-
-                    this.closePopup();
-
-                };
-
-
+                btn.innerText = "×";
+                btn.style.pointerEvents = "auto";
+                btn.onclick = () => this.closePopup();
             }
-
-
-        },1000);
-
-
+        }, 1000);
     },
 
-
-
-    closePopup(){
-
-
-        const overlay=
-        document.getElementById("dk-pop-overlay");
-
-
-
-        if(overlay)
-
-        overlay.style.display="none";
-
-
-
-        this.popupOpen=false;
-
-
-
-        localStorage.setItem(
-            "dk_pop_last_seen",
-            Date.now()
-        );
-
-
-
+    closePopup() {
+        const overlay = document.getElementById("dk-pop-overlay");
+        if (overlay) overlay.style.display = "none";
+        this.popupOpen = false;
+        localStorage.setItem("dk_pop_last_seen", Date.now());
     },
 
-
-
-    setupOutsideClick(){
-
-
-        const overlay=
-        document.getElementById("dk-pop-overlay");
-
-
-
-        if(!overlay)
-        return;
-
-
-
-        overlay.onclick=(e)=>{
-
-
-            let btn=
-            document.getElementById("dk-close-btn");
-
-
-
-            if(
-                e.target===overlay &&
-                btn &&
-                btn.innerText==="×"
-            ){
-
-                this.closePopup();
-
-            }
-
-
-        };
-
-
+    setupOutsideClick() {
+        const overlay = document.getElementById("dk-pop-overlay");
+        if (overlay) {
+            overlay.onclick = (e) => {
+                const btn = document.getElementById("dk-close-btn");
+                if (e.target === overlay && btn && btn.innerText === "×") this.closePopup();
+            };
+        }
     }
-
-
 };
 
+document.addEventListener("DOMContentLoaded", () => DK_Engine.init());
 
 
 
-	    
-document.addEventListener('DOMContentLoaded', () => {
-    DK_Engine.init();
-});
-
-  
-
-
-
-
-            
-                (function(){
-
-const stroke=document.getElementById('circle-stroke');
-const btn=document.getElementById('custom-lock-btn');
-
-if(!stroke || !btn) return;
-
-let time=10;
-
-setTimeout(()=>{
- stroke.style.strokeDasharray='100,100';
-},100);
-
-const count=setInterval(()=>{
- time--;
- btn.innerText=time;
-
- if(time<=0){
-  clearInterval(count);
-  btn.innerHTML="×";
- }
-
-},1000);
-
-})();
-				
-
- setTimeout(() => { 
- const bar = document.getElementById('p-bar-fill');
- if(bar) bar.style.width='100%';
-},100);
-(function(){
-                const top = document.getElementById('top-bar-fill');
-if(top){
- top.style.width='100%';
-}
-}  
-	let sec = 10;
-                const box = document.getElementById('counting-box');
-                const timer = setInterval(() => {
-                    sec--;
-                    box.innerText = "Loading: " + sec + "s";
-                    if(sec <= 0) {
-                        clearInterval(timer);
-                        box.innerText = "Ready to Close";
-                        box.style.background = "#34c759";
-                        box.style.color = "#fff";
-                    }
-                }, 1000);
-            })();
-        
-        
+    
