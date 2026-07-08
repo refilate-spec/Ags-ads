@@ -43,7 +43,8 @@ const AGS_SYSTEM = {
                 "Airtel": "https://i.airtel.in/refandearnP88PDCCKYC",
                 "Jar Gold": "https://jar.onelink.me/6H9Q/k3l486ei",
                 "Innopay": "https://mkt2.in/innopay/SsfJNLSE",
-                "Taurus App": "https://th1.my/BJTRM1/5g5eoma"
+                "Taurus App": "https://th1.my/BJTRM1/5g5eoma", 
+                "Navi App": "https://r.navi.com/ymKIQC"
             },
             "games": {
                 "Game3f": "https://www.skillerbet.com/kqVg",
