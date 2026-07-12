@@ -57,7 +57,7 @@ const AGS_SYSTEM = {
 
   "yonogames": {
     "Rummy Ludo": "https://www.rummyludo1.com/?code=UWPXCMUM8G6&t=1780553615",
-    "Games Rummy": "https://gamesrummy.club/?code=Q6WA7QSCF8S&t=1780553756",
+    "Games Rummy": "https://gamesrummy.club/?code=Q6WA7QSCF8S&t=1783828948",
     "Yes Spin": "https://www.yesspiniii.com/?code=47TTVQFBVQU&t=1780566195",
     "Rummy 91": "https://www.rummy91n.bet/?code=4KT9EB3JWVV&t=1780575442",
     "777 Game": "https://www.777game0.com/?code=H53SWTT7STB&t=1780566856www.777game7.com",
