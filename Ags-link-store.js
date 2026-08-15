@@ -109,8 +109,16 @@ const AGS_SYSTEM = {
     "Joy Rummy": "https://www.joyrummy.me/?code=J5KLWKKCBDS&t=1780575309",
     "Boss Rummy": "https://bossrummyyy.com/?code=0T8Y8BSL24N",
     "Rummy 888": "https://rummy888vip34.com/?code=TPUAYRH7Z1X&t=1780717684",
-    "Svip 777": "https://www.svip777.life?pid=444355080&channel=2010001&pkg=com.svip777.app"
+    "Svip 777": "https://www.svip777.life?pid=444355080&channel=2010001&pkg=com.svip777.app", 
+  "Max Rummy": "https://www.maxrummy123.com/?code=QUMVY335GKX&t=1786274440", 
+"Win Rummy": "https://www.winrummy4.com/?code=8JTKBMXFEPA&t=1786275479", 
+"Jaiho 91": "https://jaiho91cash.vip/?code=C4252GH68H6&t=1786247367", 
+"Dhan Game":  "https://www.dhanwin365.com/?code=47TTVQFBVQU&t=1786187781", 
+"Diwa Top": "https://diwatopshare.bet?pid=329212290&channel=2010001&pkg=com.diwatop.app", 
+"Diwa VIP": "https://diwavipshare.bet?pid=286448216&channel=2010001&pkg=com.diwavip.app", 
+"INR Rummy": "https://inrrummysvip.vip/?code=JMQHSP2XYST&t=1786247170"
   }, 
+            
             "hosting": {
                 "Hostinger": "https://www.hostinger.com/in?REFERRALCODE=Hostiyox"
             },
