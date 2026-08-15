@@ -117,7 +117,7 @@ const AGS_SYSTEM = {
 "my_social": {
     "Refilate TG": "https://t.me/refilate",
     "Refilate WA": "https://whatsapp.com/channel/0029VaCI8wU4CrfgOyJ1ex3f", 
-    "GMzate TG": "https://t.me/gmzate"
+    "Gmzate TG": "https://t.me/gmzate"
   },
             "cpalink": {
                 "Link-1": "https://1buv.com/link?z=10737352&var={SOURCE_ID}&ymid={CLICK_ID}"
