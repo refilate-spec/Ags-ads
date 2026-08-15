@@ -55,7 +55,7 @@ const AGS_SYSTEM = {
             },
 
 
-  {
+  
   "yonogames": {
     "Rummy Ludo": "https://www.rummyludo1.com/?code=UWPXCMUM8G6&t=1786274741",
     "Games Rummy": "https://gamesrummy.club/?code=Q6WA7QSCF8S&t=1786187969",
@@ -118,7 +118,7 @@ const AGS_SYSTEM = {
     "Svip 777": "https://www.svip777.life?pid=444355080&channel=2010001&pkg=com.svip777.app",
     "Win Rummy": "https://www.winrummy4.com/?code=8JTKBMXFEPA&t=1786275479",
     "Yono 777": "https://uonoagentnew.asia/?code=GKGVQDF8KSZ&t=1786266232"
-  }
+  
   }, 
             
             "hosting": {
