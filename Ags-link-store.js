@@ -17,7 +17,7 @@ const AGS_AUTH = {
 
 const AGS_SYSTEM = {
     config: {
-        storageKey: "AGS_LINKS_v3.6",
+        storageKey: "AGS_LINKS_v3.7",
         adminPassword: "6356",
         defaults: {
             "offers": {},
