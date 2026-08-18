@@ -288,3 +288,6 @@ const AGS_SYSTEM = {
 
 // Start
 window.addEventListener("DOMContentLoaded", () => AGS_SYSTEM.init());
+document.addEventListener("cardsRendered", function() {
+  // Yahan aap apni dusri script ka logic run kar sakte hain jo data-link ko read karti hai
+});
