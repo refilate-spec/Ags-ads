@@ -1,0 +1,1401 @@
+<!-- Tailwind CSS CDN -->
+    <script src='https://cdn.tailwindcss.com'/>
+    <script>
+        tailwind.config = {
+            darkMode: &#39;class&#39;,
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: &#39;#090a0f&#39;,
+                        cardBg: &#39;#13151f&#39;,
+                        cardHover: &#39;#1a1d2d&#39;,
+                        goldPrimary: &#39;#f59e0b&#39;,
+                        goldLight: &#39;#fbbf24&#39;,
+                        cyanAccent: &#39;#06b6d4&#39;,
+                    },
+                    boxShadow: {
+                        &#39;glow-gold&#39;: &#39;0 0 25px -5px rgba(245, 158, 11, 0.25)&#39;,
+                        &#39;glow-cyan&#39;: &#39;0 0 25px -5px rgba(6, 182, 212, 0.25)&#39;,
+                        &#39;glass&#39;: &#39;0 8px 32px 0 rgba(0, 0, 0, 0.37)&#39;,
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #090a0f; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #374151; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+
+<div class='mox-zone bg-darkBg text-slate-100 font-sans antialiased selection:bg-goldPrimary selection:text-black pb-28 md:pb-24'>
+
+    <!-- TOAST CONTAINER -->
+    <div class='fixed top-20 right-4 z-50 flex flex-col gap-2 pointer-events-none' id='toast-container'/>
+
+    <!-- HEADER -->
+    <header class='sticky top-0 z-40 w-full backdrop-blur-xl bg-darkBg/80 border-b border-slate-800/80 transition-all duration-300'>
+        <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between'>
+            <div class='flex items-center gap-3'>
+                <a class='flex items-center gap-2 group' href='#'>
+                    <div class='w-10 h-10 rounded-xl bg-gradient-to-br from-goldPrimary to-amber-600 flex items-center justify-center shadow-lg shadow-goldPrimary/20 group-hover:scale-105 transition-transform'>
+                        <svg class='w-6 h-6 text-black' fill='none' stroke='currentColor' stroke-width='2.5' viewBox='0 0 24 24'><path d='M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z' stroke-linecap='round' stroke-linejoin='round'/><path d='M21 12a9 9 0 11-18 0 9 9 0 0118 0z' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                    </div>
+                    <div>
+                        <span class='font-extrabold text-lg tracking-wider bg-gradient-to-r from-white via-slate-200 to-goldPrimary bg-clip-text text-transparent' id='nav-brand-name'>NEXISPLAY</span>
+                        <div class='flex items-center gap-1 text-[10px] text-emerald-400 font-medium'>
+                            <svg class='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'><path clip-rule='evenodd' d='M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' fill-rule='evenodd'/></svg>
+                            <span>Verified Hub</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class='hidden md:flex items-center gap-6 text-sm font-medium text-slate-300'>
+                <a class='hover:text-goldPrimary transition-colors' href='#games-section'>Games</a>
+                <a class='hover:text-goldPrimary transition-colors' href='#games-section'>Apps</a>
+                <a class='hover:text-goldPrimary transition-colors' href='#about-section'>About Us</a>
+                <a class='hover:text-goldPrimary transition-colors' href='#articles-section'>Articles</a>
+                <a class='hover:text-goldPrimary transition-colors' href='#faq-section'>FAQ</a>
+            </div>
+
+            <div class='flex items-center gap-2 sm:gap-3'>
+                <a class='hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/25 text-xs font-semibold transition-all' href='#' id='header-telegram' target='_blank'>
+                    <svg class='w-4 h-4' fill='currentColor' viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.02-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.92-1.65 4.74-1.94 5.27-1.95.12 0 .39.03.56.17.14.12.18.28.2.45-.02.07-.02.13-.04.2z'/></svg>
+                    Telegram
+                </a>
+                <a class='inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/25 text-xs font-semibold transition-all' href='#' id='header-whatsapp' target='_blank'>
+                    <svg class='w-4 h-4' fill='currentColor' viewBox='0 0 24 24'><path d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z'/></svg>
+                    Support
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class='relative pt-12 pb-16 overflow-hidden'>
+        <div class='absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-goldPrimary/10 blur-[120px] rounded-full pointer-events-none'/>
+        <div class='absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-cyanAccent/10 blur-[100px] rounded-full pointer-events-none'/>
+
+        <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
+            <div class='text-center max-w-3xl mx-auto'>
+                <div class='inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-goldPrimary/30 shadow-glow-gold mb-6'>
+                    <svg class='w-4 h-4 text-goldPrimary' fill='currentColor' viewBox='0 0 20 20'><path clip-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' fill-rule='evenodd'/></svg>
+                    <span class='text-xs font-bold tracking-wider text-goldPrimary uppercase'>Verified &amp;Trusted Gaming &amp; App Platform</span>
+                </div>
+
+                <h1 class='text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6'>
+                    Premium Games &amp; Apps &#8212; <span class='bg-gradient-to-r from-goldPrimary via-amber-400 to-cyanAccent bg-clip-text text-transparent'>Discover Your Next Favorite</span>
+                </h1>
+
+                <p class='text-slate-400 text-base sm:text-lg mb-8 leading-relaxed max-w-2xl mx-auto'>
+                    Explore top-tier mobile games and verified apps. Claim instant sign-up bonuses, enjoy fast withdrawals, and experience lightning-fast secure downloads.
+                </p>
+
+                <div class='flex flex-wrap items-center justify-center gap-4 mb-10'>
+                    <button class='px-8 py-4 rounded-2xl bg-gradient-to-r from-goldPrimary to-amber-500 hover:from-amber-400 hover:to-goldPrimary text-black font-extrabold shadow-lg shadow-goldPrimary/25 hover:shadow-goldPrimary/40 transition-all flex items-center gap-2 group' onclick='scrollToGames()'>
+                        <span>EXPLORE GAMES</span>
+                        <svg class='w-5 h-5 group-hover:translate-y-0.5 transition-transform' fill='none' stroke='currentColor' stroke-width='2.5' viewBox='0 0 24 24'><path d='M19 14l-7 7m0 0l-7-7m7 7V3' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                    </button>
+                    <a class='px-7 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-bold border border-slate-700/80 hover:border-slate-600 transition-all flex items-center gap-2' href='#' id='hero-telegram-btn' target='_blank'>
+                        <svg class='w-5 h-5 text-sky-400' fill='currentColor' viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.02-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.92-1.65 4.74-1.94 5.27-1.95.12 0 .39.03.56.17.14.12.18.28.2.45-.02.07-.02.13-.04.2z'/></svg>
+                        <span>Join Telegram Channel</span>
+                    </a>
+                </div>
+
+                <div class='grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-slate-800/80'>
+                    <div class='bg-cardBg/60 backdrop-blur border border-slate-800 p-4 rounded-2xl text-center'>
+                        <div class='text-2xl sm:text-3xl font-black text-goldPrimary' id='stat-apps-count'>50+</div>
+                        <div class='text-xs text-slate-400 font-medium mt-1'>Apps &amp; Games</div>
+                    </div>
+                    <div class='bg-cardBg/60 backdrop-blur border border-slate-800 p-4 rounded-2xl text-center'>
+                        <div class='text-2xl sm:text-3xl font-black text-cyanAccent'>100%</div>
+                        <div class='text-xs text-slate-400 font-medium mt-1'>Verified Safe</div>
+                    </div>
+                    <div class='bg-cardBg/60 backdrop-blur border border-slate-800 p-4 rounded-2xl text-center'>
+                        <div class='text-2xl sm:text-3xl font-black text-emerald-400'>24/7</div>
+                        <div class='text-xs text-slate-400 font-medium mt-1'>Fast Updates</div>
+                    </div>
+                    <div class='bg-cardBg/60 backdrop-blur border border-slate-800 p-4 rounded-2xl text-center'>
+                        <div class='text-2xl sm:text-3xl font-black text-amber-300'>4.9 &#9733;</div>
+                        <div class='text-xs text-slate-400 font-medium mt-1'>User Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEARCH & FILTER SECTION -->
+    <section class='py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' id='games-section'>
+        <div class='bg-cardBg/80 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-4 sm:p-6 shadow-glass mb-8'>
+            <div class='relative mb-6'>
+                <span class='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400'>
+                    <svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </span>
+                <input class='w-full pl-12 pr-4 py-3.5 bg-slate-900/90 border border-slate-700/80 rounded-2xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-goldPrimary focus:ring-1 focus:ring-goldPrimary transition-all text-sm sm:text-base' id='search-input' placeholder='Search by game name, app, tags, category, or description...' type='text'/>
+                <button class='absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-white hidden' id='clear-search-btn'>
+                    <svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M6 18L18 6M6 6l12 12' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </button>
+            </div>
+
+            <div class='flex flex-col md:flex-row md:items-center justify-between gap-4'>
+                <div class='flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2 md:pb-0' id='category-chips'/>
+
+                <div class='flex items-center gap-3 shrink-0'>
+                    <select class='bg-slate-900 border border-slate-700/80 text-slate-300 text-xs sm:text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-goldPrimary' id='sort-select'>
+                        <option value='recommended'>Sort: Recommended</option>
+                        <option value='rating-high'>Rating: High to Low</option>
+                        <option value='newest'>Newest First</option>
+                        <option value='trending'>Trending First</option>
+                    </select>
+                    <button class='px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all' id='reset-filters-btn'>Clear Filters</button>
+                </div>
+            </div>
+
+            <div class='flex items-center justify-between mt-4 pt-4 border-t border-slate-800/80 text-xs sm:text-sm text-slate-400'>
+                <span id='result-count-text'>Showing all posts</span>
+                <span class='text-goldPrimary font-medium' id='active-filter-badge'/>
+            </div> 
+        </div>
+
+        <!-- FEATURED / TRENDING HIGHLIGHTS (1:1 Grid) -->
+        <div class='mb-12' id='featured-container'>
+            <div class='flex items-center justify-between mb-6'>
+                <h2 class='text-xl sm:text-2xl font-black flex items-center gap-2'>
+                    <svg class='w-6 h-6 text-goldPrimary' fill='currentColor' viewBox='0 0 20 20'><path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z'/></svg>
+                    <span>Featured &amp; Trending</span>
+                </h2>
+                <span class='text-xs text-slate-400 font-semibold tracking-wider uppercase'>Top Picks</span>
+            </div>
+            <div class='grid grid-flow-col auto-cols-[calc((100%-24px)/3)] gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 sm:grid-flow-row sm:auto-cols-auto sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 sm:gap-4 sm:overflow-visible sm:snap-none sm:pb-0' id='featured-grid'>
+</div>
+        </div>
+
+        <!-- MAIN GAME/APP GRID (1:1 Grid) -->
+        <div>
+            <div class='flex items-center justify-between mb-6'>
+                <h2 class='text-xl sm:text-2xl font-black flex items-center gap-2'>
+                    <svg class='w-6 h-6 text-cyanAccent' fill='none' stroke='currentColor' stroke-width='2.5' viewBox='0 0 24 24'><path d='M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                    <span>All Games &amp; Applications</span>
+                </h2>
+            </div>
+
+            <div class='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4' id='games-grid'/>
+
+            <div class='hidden text-center py-16 bg-cardBg/50 border border-slate-800 rounded-3xl mt-4' id='empty-state'>
+                <div class='w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400'>
+                    <svg class='w-8 h-8' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </div>
+                <h3 class='text-lg font-bold text-white mb-1'>No games found</h3>
+                <p class='text-slate-400 text-sm mb-6'>Try another search term or clear your filters.</p>
+                <button class='px-5 py-2.5 rounded-xl bg-goldPrimary text-black font-bold text-sm shadow-lg shadow-goldPrimary/20' onclick='resetAllFilters()'>CLEAR FILTERS</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section class='py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/80' id='about-section'>
+        <div class='bg-cardBg/80 backdrop-blur-xl border border-slate-800 p-6 sm:p-10 rounded-3xl'>
+            <div class='max-w-3xl'>
+                <span class='text-xs font-extrabold uppercase tracking-widest text-goldPrimary mb-2 block'>About NexisPlay</span>
+                <h2 class='text-2xl sm:text-3xl font-black mb-4 text-white'>India&#39;s Most Trusted Gaming &amp; Bonus Discovery Platform</h2>
+                <p class='text-slate-300 text-sm sm:text-base leading-relaxed mb-4'>
+                    NexisPlay is designed for gamers and app enthusiasts who want safe APK downloads, instant sign-up bonuses, and fast-withdrawal gaming applications in one place. We verify every single application to ensure 100% security and zero malware.
+                </p>
+                <p class='text-slate-400 text-xs sm:text-sm leading-relaxed'>
+                    Whether you love card games, fantasy sports, or action titles, our platform provides instant rewards, verified download links, and 24/7 community assistance via Telegram and WhatsApp.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED ARTICLES / GUIDES SECTION -->
+    <section class='py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/80' id='articles-section'>
+        <div class='flex items-center justify-between mb-8'>
+            <div>
+                <span class='text-xs font-extrabold uppercase tracking-widest text-cyanAccent mb-1 block'>Guides &amp; News</span>
+                <h2 class='text-2xl sm:text-3xl font-black text-white'>Featured Articles &amp; Updates</h2>
+            </div>
+        </div>
+
+        <div class='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <!-- Article Card 1 -->
+            <div class='bg-cardBg border border-slate-800 rounded-3xl overflow-hidden group hover:border-goldPrimary/50 transition-all flex flex-col justify-between'>
+                <div class='p-6'>
+                    <span class='px-3 py-1 rounded-full bg-goldPrimary/10 text-goldPrimary text-[10px] font-extrabold uppercase mb-4 inline-block'>Gaming Guide</span>
+                    <h3 class='text-lg font-bold text-white mb-2 group-hover:text-goldPrimary transition-colors'>How to Claim &#8377;100 Sign-Up Bonus Safely</h3>
+                    <p class='text-slate-400 text-xs sm:text-sm leading-relaxed mb-4'>
+                        Learn the step-by-step process of downloading verified games, completing the verification timer, and receiving your instant wallet bonuses.
+                    </p>
+                </div>
+                <div class='px-6 pb-6 pt-0 border-t border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-500 pt-3'>
+                    <span>Published Today</span>
+                    <span class='text-goldPrimary font-bold'>Read More &#8594;</span>
+                </div>
+            </div>
+
+            <!-- Article Card 2 -->
+            <div class='bg-cardBg border border-slate-800 rounded-3xl overflow-hidden group hover:border-cyanAccent/50 transition-all flex flex-col justify-between'>
+                <div class='p-6'>
+                    <span class='px-3 py-1 rounded-full bg-cyanAccent/10 text-cyanAccent text-[10px] font-extrabold uppercase mb-4 inline-block'>Security Tips</span>
+                    <h3 class='text-lg font-bold text-white mb-2 group-hover:text-cyanAccent transition-colors'>Why Fast Withdrawal Apps Are Trending in 2026</h3>
+                    <p class='text-slate-400 text-xs sm:text-sm leading-relaxed mb-4'>
+                        Discover the top features of instant payout applications and how automated UPI gateways have transformed mobile gaming rewards.
+                    </p>
+                </div>
+                <div class='px-6 pb-6 pt-0 border-t border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-500 pt-3'>
+                    <span>2 days ago</span>
+                    <span class='text-cyanAccent font-bold'>Read More &#8594;</span>
+                </div>
+            </div>
+
+            <!-- Article Card 3 -->
+            <div class='bg-cardBg border border-slate-800 rounded-3xl overflow-hidden group hover:border-emerald-400/50 transition-all flex flex-col justify-between'>
+                <div class='p-6'>
+                    <span class='px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-extrabold uppercase mb-4 inline-block'>Community</span>
+                    <h3 class='text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors'>Join Our Telegram &amp; WhatsApp Community</h3>
+                    <p class='text-slate-400 text-xs sm:text-sm leading-relaxed mb-4'>
+                        Get exclusive daily promo codes, direct APK files, and live support directly from our official community channels.
+                    </p>
+                </div>
+                <div class='px-6 pb-6 pt-0 border-t border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-500 pt-3'>
+                    <span>Weekly Update</span>
+                    <span class='text-emerald-400 font-bold'>Join Now &#8594;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMATION SECTIONS -->
+    <section class='py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/80' id='features-section'>
+        <div class='text-center max-w-2xl mx-auto mb-12'>
+            <h2 class='text-2xl sm:text-3xl font-black mb-3'>Why Choose NexisPlay?</h2>
+            <p class='text-slate-400 text-sm sm:text-base'>We provide a secure, ultra-fast platform to discover apps and claim bonuses safely.</p>
+        </div>
+
+        <div class='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <div class='bg-cardBg/70 backdrop-blur border border-slate-800 p-6 rounded-3xl hover:border-goldPrimary/40 transition-all'>
+                <div class='w-12 h-12 rounded-2xl bg-goldPrimary/10 border border-goldPrimary/25 flex items-center justify-center text-goldPrimary mb-4'>
+                    <svg class='w-6 h-6' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </div>
+                <h3 class='text-lg font-bold text-white mb-2'>100% Verified Secure</h3>
+                <p class='text-slate-400 text-sm leading-relaxed'>Every application and game listed on NexisPlay is tested and verified for absolute user safety.</p>
+            </div>
+            <div class='bg-cardBg/70 backdrop-blur border border-slate-800 p-6 rounded-3xl hover:border-cyanAccent/40 transition-all'>
+                <div class='w-12 h-12 rounded-2xl bg-cyanAccent/10 border border-cyanAccent/25 flex items-center justify-center text-cyanAccent mb-4'>
+                    <svg class='w-6 h-6' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </div>
+                <h3 class='text-lg font-bold text-white mb-2'>Instant Sign-Up Bonus</h3>
+                <p class='text-slate-400 text-sm leading-relaxed'>Claim exclusive rewards and &#8377;100 sign-up bonuses instantly upon joining our platform.</p>
+            </div>
+            <div class='bg-cardBg/70 backdrop-blur border border-slate-800 p-6 rounded-3xl hover:border-emerald-400/40 transition-all'>
+                <div class='w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 mb-4'>
+                    <svg class='w-6 h-6' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M13 10V3L4 14h7v7l9-11h-7z' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </div>
+                <h3 class='text-lg font-bold text-white mb-2'>Lightning Fast Downloads</h3>
+                <p class='text-slate-400 text-sm leading-relaxed'>Experience high-speed optimized servers and effortless direct downloads without annoying redirects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class='py-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/80' id='faq-section'>
+        <div class='text-center mb-10'>
+            <h2 class='text-2xl sm:text-3xl font-black mb-2'>Frequently Asked Questions</h2>
+            <p class='text-slate-400 text-sm'>Got questions? We&#39;ve got clear answers.</p>
+        </div>
+
+        <div class='space-y-4' id='faq-accordion'>
+            <div class='bg-cardBg/80 border border-slate-800 rounded-2xl overflow-hidden transition-all'>
+                <button class='w-full px-6 py-4 text-left font-bold text-slate-200 flex items-center justify-between gap-4' onclick='toggleFaq(this)'>
+                    <span>How do I claim my &#8377;100 sign-up bonus?</span>
+                    <svg class='w-5 h-5 text-goldPrimary transition-transform duration-300' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M19 9l-7 7-7-7' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </button>
+                <div class='faq-content hidden px-6 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-800/50 pt-3'>
+                    Simply click on any game or app card, open the download modal, complete the 20-second verification timer, join our Telegram/WhatsApp channels, and claim your instant reward.
+                </div>
+            </div>
+            <div class='bg-cardBg/80 border border-slate-800 rounded-2xl overflow-hidden transition-all'>
+                <button class='w-full px-6 py-4 text-left font-bold text-slate-200 flex items-center justify-between gap-4' onclick='toggleFaq(this)'>
+                    <span>Are all games and apps safe to download?</span>
+                    <svg class='w-5 h-5 text-goldPrimary transition-transform duration-300' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M19 9l-7 7-7-7' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                </button>
+                <div class='faq-content hidden px-6 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-800/50 pt-3'>
+                    Yes! Every file hosted or linked on NexisPlay undergoes strict security checks and is certified safe and malware-free before publication.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class='border-t border-slate-800/80 bg-black/40 pt-12 pb-24'>
+        <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12'>
+            <div class='md:col-span-1'>
+                <div class='flex items-center gap-2 mb-4'>
+                    <div class='w-8 h-8 rounded-lg bg-goldPrimary flex items-center justify-center text-black font-black'>N</div>
+                    <span class='font-extrabold text-base tracking-wider text-white' id='footer-brand-name'>NEXISPLAY</span>
+                </div>
+                <p class='text-slate-400 text-xs leading-relaxed mb-4'>Your ultimate premium destination for verified mobile games, apps, and instant sign-up bonuses.</p>
+                <div class='flex items-center gap-3'>
+                    <a class='w-9 h-9 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 flex items-center justify-center transition-all' href='#' id='footer-telegram' target='_blank'>
+                        <svg class='w-4 h-4' fill='currentColor' viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.02-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.92-1.65 4.74-1.94 5.27-1.95.12 0 .39.03.56.17.14.12.18.28.2.45-.02.07-.02.13-.04.2z'/></svg>
+                    </a>
+                    <a class='w-9 h-9 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 flex items-center justify-center transition-all' href='#' id='footer-whatsapp' target='_blank'>
+                        <svg class='w-4 h-4' fill='currentColor' viewBox='0 0 24 24'><path d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z'/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class='text-xs font-bold uppercase tracking-wider text-slate-300 mb-4'>Explore</h4>
+                <ul class='space-y-2.5 text-xs text-slate-400'>
+                    <li><a class='hover:text-goldPrimary transition-colors' href='#games-section'>All Games</a></li>
+                    <li><a class='hover:text-goldPrimary transition-colors' href='#about-section'>About Us</a></li>
+                    <li><a class='hover:text-goldPrimary transition-colors' href='#articles-section'>Articles &amp;  Guides</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class='text-xs font-bold uppercase tracking-wider text-slate-300 mb-4'>Support &amp; Community</h4>
+                <ul class='space-y-2.5 text-xs text-slate-400'>
+                    <li><a class='hover:text-sky-400 transition-colors' href='#' id='footer-tg-link' target='_blank'>Telegram Channel</a></li>
+                    <li><a class='hover:text-emerald-400 transition-colors' href='#' id='footer-wa-link' target='_blank'>WhatsApp Assistance</a></li>
+                    <li><a class='hover:text-goldPrimary transition-colors' href='#faq-section'>FAQ &amp; Help</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class='text-xs font-bold uppercase tracking-wider text-slate-300 mb-4'>Information</h4>
+                <ul class='space-y-2.5 text-xs text-slate-400'>
+                    <li><a class='hover:text-goldPrimary transition-colors' href='#' onclick='showToast(&apos;Privacy Policy is fully compliant with standard guidelines.&apos;, &apos;info&apos;)'>Privacy Policy</a></li>
+                    <li><a class='hover:text-goldPrimary transition-colors' href='#' onclick='showToast(&apos;Terms of Service apply to all users.&apos;, &apos;info&apos;)'>Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-900 text-center text-xs text-slate-500'>
+            
+          &#169;<span id='current-year'>2026</span> NexisPlay Gaming Hub. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- STICKY BOTTOM CTA -->
+    <div class='fixed bottom-0 left-0 right-0 z-30 bg-slate-950/90 backdrop-blur-xl border-t border-goldPrimary/30 shadow-2xl py-3 px-4 transition-all duration-300'>
+        <div class='max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3'>
+            <div class='flex items-center gap-3 text-center sm:text-left'>
+                <div class='w-10 h-10 rounded-xl bg-goldPrimary/20 border border-goldPrimary/40 hidden sm:flex items-center justify-center text-goldPrimary shrink-0'>
+                    <svg class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'><path clip-rule='evenodd' d='M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 012 2v5a2 2 0 01-2 2h-3.17a3 3 0 01-4.66 2.236A3 3 0 015 15V5zm4 2a1 1 0 100-2 1 1 0 000 2zm0 6a1 1 0 100-2 1 1 0 000 2z' fill-rule='evenodd'/></svg>
+                </div>
+                <div>
+                    <div class='text-xs sm:text-sm font-black text-goldPrimary uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1.5'>
+                        <span class='inline-block w-2 h-2 rounded-full bg-goldPrimary animate-pulse'/>
+                        <span id='sticky-bonus-text'>&#8377;100 SIGN UP BONUS FREE</span>
+                    </div>
+                    <div class='text-[11px] sm:text-xs text-slate-300'>Claim your instant bonus and explore verified premium games.</div>
+                </div>
+            </div>
+            <button class='w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-goldPrimary to-amber-500 hover:from-amber-400 hover:to-goldPrimary text-black font-black text-xs sm:text-sm shadow-lg shadow-goldPrimary/25 flex items-center justify-center gap-2 transition-all' onclick='openTopBonusApp()'>
+                <svg class='w-4 h-4' fill='none' stroke='currentColor' stroke-width='2.5' viewBox='0 0 24 24'><path d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' stroke-linecap='round' stroke-linejoin='round'/></svg>
+                <span>DOWNLOAD &amp; CLAIM BONUS</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- DOWNLOAD & DETAILS MODAL -->
+<!-- DOWNLOAD & DETAILS MODAL -->
+<div class='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300' id='game-modal'>
+
+    <div class='bg-cardBg border border-slate-700/80 w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col min-h-0' id='modal-card'>
+
+        <!-- FIXED HEADER -->
+        <div class='shrink-0 px-4 py-3.5 sm:px-5 sm:py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/50'>
+
+            <div class='flex items-center gap-3 min-w-0'>
+                <img alt='' class='w-12 h-12 shrink-0 rounded-2xl object-contain' id='modal-img' src=''/>
+
+                <div class='min-w-0'>
+                    <h3 class='font-bold text-base sm:text-lg text-white line-clamp-1' id='modal-title'/>
+
+                    <div class='flex items-center gap-2 text-xs text-slate-400'>
+                        <span class='text-goldPrimary font-semibold' id='modal-category'/>
+                        <span>&#8226;</span>
+                        <span class='text-amber-400 font-bold' id='modal-rating'>&#9733; 4.8</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class='w-9 h-9 shrink-0 ml-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all' onclick='closeGameModal()'>
+                <svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'>
+                    <path d='M6 18L18 6M6 6l12 12' stroke-linecap='round' stroke-linejoin='round'/>
+                </svg>
+            </button>
+
+        </div>
+
+
+        <!-- SCROLLABLE CONTENT -->
+        <div class='flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 space-y-4'>
+
+            <div class='bg-gradient-to-r from-amber-500/10 via-goldPrimary/10 to-amber-600/10 border border-goldPrimary/30 p-4 rounded-2xl flex items-center justify-between'>
+                <div>
+                    <div class='text-[11px] font-bold text-goldPrimary uppercase tracking-wider'>
+                        Exclusive Reward
+                    </div>
+
+                    <div class='text-base sm:text-lg font-black text-white' id='modal-bonus'>
+                        &#8377;100 SIGN UP BONUS
+                    </div>
+                </div>
+
+                <div class='px-3 py-1 rounded-xl bg-goldPrimary text-black font-extrabold text-xs'>
+                    Verified
+                </div>
+            </div>
+
+
+            <div class='grid grid-cols-2 gap-3 text-xs'>
+
+                <div class='bg-slate-900/80 border border-slate-800 p-3 rounded-xl'>
+                    <span class='text-slate-400 block mb-0.5'>
+                        Withdrawal Speed
+                    </span>
+
+                    <span class='font-bold text-emerald-400' id='modal-withdraw'>
+                        Fast &amp; Instant
+                    </span>
+                </div>
+
+                <div class='bg-slate-900/80 border border-slate-800 p-3 rounded-xl'>
+                    <span class='text-slate-400 block mb-0.5'>
+                        Security Status
+                    </span>
+
+                    <span class='font-bold text-cyanAccent'>
+                        100% Safe
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div>
+                <h4 class='text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5'>
+                    About This Game / App
+                </h4>
+
+                <p class='text-xs sm:text-sm text-slate-400 leading-relaxed' id='modal-article'/>
+            </div>
+
+
+            <!-- TIMER -->
+            <div class='bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center hidden' id='timer-box'>
+                <div class='text-xs font-bold text-slate-300 mb-2' id='timer-status-text'>
+                    Preparing your secure download...
+                </div>
+
+                <div class='flex items-center justify-center gap-3'>
+                    <div class='w-10 h-10 rounded-xl bg-goldPrimary/10 border border-goldPrimary/30 flex items-center justify-center text-goldPrimary font-black text-lg shrink-0' id='countdown-number'>
+                        20
+                    </div>
+
+                    <span class='text-xs text-slate-400 text-left'>
+                        Please wait while our secure servers generate your link.
+                    </span>
+                </div>
+            </div>
+
+
+            <!-- SOCIAL JOIN -->
+            <div class='hidden bg-slate-900/90 border border-sky-500/30 p-4 rounded-2xl text-center space-y-3' id='social-join-box'>
+
+                <div class='text-xs font-extrabold text-sky-400 uppercase tracking-wide'>
+                    📢 Join Our Official Channels
+                </div>
+
+                <p class='text-xs text-slate-300'>
+                    Join our Telegram or WhatsApp group to get daily bonus updates and direct APK files.
+                </p>
+
+                <div class='grid grid-cols-2 gap-2'>
+
+                    <a class='px-3 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md' href='#' id='modal-tg-link' target='_blank'>
+                        Join Telegram
+                    </a>
+
+                    <a class='px-3 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md' href='#' id='modal-wa-link' target='_blank'>
+                        Join WhatsApp
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FIXED FOOTER / BUTTON -->
+        <div class='shrink-0 px-4 py-3.5 sm:px-5 sm:py-4 border-t border-slate-800 bg-slate-900/50'>
+
+            <button class='w-full py-3.5 rounded-xl bg-gradient-to-r from-goldPrimary to-amber-500 hover:from-amber-400 hover:to-goldPrimary text-black font-black text-sm shadow-lg shadow-goldPrimary/25 flex items-center justify-center gap-2 transition-all' id='modal-action-btn' onclick='startDownloadTimer()'>
+
+                <svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2.5' viewBox='0 0 24 24'>
+                    <path d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' stroke-linecap='round' stroke-linejoin='round'/>
+                </svg>
+
+                <span id='modal-btn-text'>
+                    DOWNLOAD GAME
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+</div>
+   
+  
+  <script type='text/javascript'>
+//<![CDATA[
+        window.SITE_CONFIG = {
+            brandName: "NEXISPLAY",
+            logoUrl: "",
+            telegramUrl: "https://telegram.org",
+            whatsappUrl: "https://whatsapp.com",
+            supportUrl: "https://telegram.org",
+            signupBonus: "₹100"
+        };
+
+        window.GAME_STORE_DATA = [{"id":"game-1787710526185","name":"Spin Gold","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcmkgY5GdqyzFidwCV2-hO8O7Qk8VzA5CXbIgwBGlRvaAYcM7Ys_Sdy776Zq7DtgRAFMUSLzVOh1aiKDVdOUn3falr_IcQgzkdZd7BLlzpHqeOl3bqj-o_NrKgGEtiUeiAksHb9e9l3p-mQri1CTDegdp4AA0ko8xsAQ5DHLX00utfVUUbEvXFBkeOu_k2/s1600/Spin-Gold.webp","downloadUrl":"https://spingoldappsagent.com/?code=HLTD3K9NFJ9&t=1786275314","bonus":"₹180 Bonus Free","rating":4.5,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"Bonus, High,","article":"Spin Gold is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹180 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Games"]},{"id":"game-1787710388740","name":"Yono Arcade","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh68Ifv7SB17TpQgvW0i_C6TcGv9hGbEXD8l0Ma8ef8gB8Tyyx1YWHCueMAfcvnmJLG9vnfC5CdSaInPDBowmwxf8tFUQtHLT12W9VZW7XPICqHb7DSzGrc7two6ZSldtCRLDmp3b-PRCCZ8iVnYQ_E1tKOjaENDvjn0Fn6oJUQWZ3n4GQU0xhN9L1TfxVr/s1600/Yono%20Arcade.webp","downloadUrl":"https://yonoarcadeapk13.com/?code=F55HLB47V9R&t=1786275629","bonus":"₹100 Bonus","rating":4.6,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"Bonus, Popular","article":"Yono Arcade delivers an action-packed gaming experience tailored for both casual gamers and high-scoring enthusiasts. Dive into a massive selection of arcade classics, card games, and instant-win titles right from your mobile device. Right after sign-up, you receive an instant ₹100 Bonus Free to kickstart your journey without dipping into your own pocket. Featuring a sleek interface, responsive controls, and secure transactions, it ensures smooth gameplay every single time. With a low minimum payout limit of just Withdraw ₹100, cashing out your hard-earned winnings is fast, safe, and hassle-free. Download Yono Arcade today and start playing to win!","tags":["Games"]},{"id":"game-1787710157588","name":"Yono Slots","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqM7kPAzJOtl-5Y_JEJSVIkeZaDX2_C_ZUvR4T2lRYURdHkd2v-ZbTONbvFCxgZWOXokrahg0JjK6u6UIWIajXX3C4ZHVciglpJs6-G7ITqIAREPstTiiF_3wGsWdf0wsNVlJ1c61amXEwXLvlryYCwHHlWBmEoe1hFZDl3A5BXfq6-9yHjTJ-1RmtLf01/s1600/Yono%20Slots.webp","downloadUrl":"https://yonoslotsameer.com/?code=PJB24AQ1EEN&t=1786266351","bonus":"₹49 Free","rating":4.5,"withdraw":"Instant Withdraw","badge":"Verified","description":"Popular, High","article":"Yono Slots is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹49 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Games"]},{"id":"game-1787710019147","name":"Yono 777","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgexj-iKDADPkSvX8XVQdvlC-RUl2Tgh8u1Xek6E3qiNCA76yu4z5Kz80F0_xQHT60Dq4K2XIXR2r21NDS1b1rW8IeFi4wJFWOlFaUshkFDaoFLhCO4bMtOjlsz87RxQ-FonUXs9u6gkemIOVfROY7KTRqonB3mXYzzJ-Sz20GgvpPrvnCnfXHs5-OJyeRc/s1600/Yono-777.webp","downloadUrl":"https://uonoagentnew.asia/?code=GKGVQDF8KSZ&t=1786266232","bonus":"₹199 Bonus","rating":4.8,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"High, Rating, Bonus","article":"Elevate your card gaming experience with Yono 777 , the ultimate destination packed with thrilling rewards and non-stop entertainment. New players are greeted with an amazing welcome bonus of up to ₹199 alongside a massive first deposit bonus of up to 300%. Enjoy daily excitement through exciting features like the Lucky Wheel with prizes up to ₹99,999, daily promo codes, and the unique Lucky Gullak to smash for random gold drops. Boost your earnings by inviting friends through the referral program to earn up to ₹200K, unlock exclusive cashback by leveling up your VIP status, and save up to 50% using convenient Weekly and Monthly Cards. Download Yono 777 today to start playing and claiming your rewards!","tags":["Games"]},{"id":"game-1787709847806","name":"Yono VIP","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpLDy9GXseswHxt9tCTezZZx1GjWj5WW5tG0nsRVXy3_bfVYGfn4JZyykf2K0xaaTR84bUJI3u8e-OudvYXR7lLn_4RTYFyVsaOOnGR6Vsw-3cEfFACX6TWg-mopP1G_utAjFdfIkDcRlA6h-W2cuCfNOaBGs_yGghQd4_usB0ijaORMDn19-7CusIudHx/s1600/Yono-Vip.webp","downloadUrl":"https://uonovipga.com/?code=3CRWYULK1N3&t=1786266295","bonus":"₹180 Bonus Free","rating":4.6,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"High, Bonus, Popular",featured: true,
+                trending: false,"article":"Yono VIP is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹180 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Games"]},{"id":"game-1787709537386","name":"Rummy 888","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgir5LW3BQgTj93GOnbcsS3afsexY74101kyV0ZQWy0Ao5XQy6qOcpN_utDJrHjmvv6EySO5Vm2zAj1vbQXJyU5H8wsXoFEyfV78QqZmxfOWDdyrBhn80tgxENbSvcIOmPL-8wU1bPQNiVHMkk-ZwdlVSRVPH0VfHwYvC-UgtMg3ArS1hoYC48ZzwRIWEY6/s1600/rummy888.webp","downloadUrl":"https://rummy888vip34.com/?code=TPUAYRH7Z1X&t=1786275009","bonus":"₹39 free","rating":4.3,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"Bonus,","article":"Rummy 888 is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹39 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Games"]},{"id":"game-1787709382147","name":"Win Rummy","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhV5dG0V6qoS_TSYN-3SA-Pozj4elZjtvQ0MRu2yBsntsRIYz7MXGqDxteGet2tEy4oscj0p-E-IzSu8ON7sKsEB7Qb3M294BNF3PHVZb5J8LRZ3yWyb4q3pC6aLT3wASXOu5kHibGJPtPBZ6eKJj9GMvpdTQCyWBuh9Y_C9mNm3JLxWP_WrlJ4s6NHe-HE/s1600/Win-Rummy.webp","downloadUrl":"https://www.winrummy4.com/?code=8JTKBMXFEPA&t=1787709321","bonus":"₹80 Bonus Free","rating":4.4,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"New, Trending, Featured,","article":"Win Rummy is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹80 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Games"]},{"id":"game-1787709165346","name":"Max Rummy","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFD_jQid8sLaVPa_A0Pi2TWmba5vUzTC2SgOWxwZ7BzE8jbSx2pXiUbFiuxO_MXbe9O6r3Gr3MZwHPN3a0ze4siMxVDmns_wKByrVvkBYpL8DoS-y2wnRZhtObL0Gw2cN5l6KITCnlaWtC0ap02wISzV30haLFnHP9q598mg49iKCg2tW1L9bqKC8fUvKo/s1600/max-rummy.webp","downloadUrl":"https://www.maxrummy123.com/?code=QUMVY335GKX&t=1786274440","bonus":"₹180 Bonus Free","rating":4.6,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"New, Featured, Bonus","article":"Max Rummy is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹180 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Games"]},{"id":"game-1787708950279","name":"Gold Rummy","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj46uo4X4eQlX3u4wKk5c702tM0exXk28zI5Pu1kLQIzRLXWqfhPZ-7BlU7ul7ssnosBB3Ey6g4XMTzP7O3lOtMUTGssybOSmOXq6FM_-uK1wTglmSgp8mjIalUBo12NbU1BfJlPJHPyRfxy1EKLzf0BWnKkhbHsw9rKnPyP_8vjj_PbVAs8XAmTo-B197r/s1600/logo%20%281%29%20%2815%29.png","downloadUrl":"https://goldrummy5.com/?code=JLX2LXM8BBK&t=1787708778","bonus":"₹199 Bonus Free","rating":4.5,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"Trending, Bonus, New","article":"Elevate your card gaming experience with GOLD RUMMY, the ultimate destination packed with thrilling rewards and non-stop entertainment. New players are greeted with an amazing welcome bonus of up to ₹199 alongside a massive first deposit bonus of up to 300%. Enjoy daily excitement through exciting features like the Lucky Wheel with prizes up to ₹99,999, daily promo codes, and the unique Lucky Gullak to smash for random gold drops. Boost your earnings by inviting friends through the referral program to earn up to ₹200K, unlock exclusive cashback by leveling up your VIP status, and save up to 50% using convenient Weekly and Monthly Cards. Download GOLD RUMMY today to start playing and claiming your rewards!","tags":["Games"]},{"id":"game-1787708581799","name":"IND Club","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcVSQbezLKx5xoC1OIkn2kuxfHiomwVhoV8Qxyx9VwdLrmKPnbw21T5oYMRhAVkTvSYOOshGRt2upSr4P09s4MlA2ZwAIbr_Amb3s_aMZcGErwIW6DZAjaXedUAzrMA64fdUMyYmEGaon-TpwDWXyhCXO3N2TISoohNfGYf4DEIiZtgAPzStrBJx4R1yLS/s1600/IND-CLUB.webp","downloadUrl":"http://indclub90.com/?code=34UT22M7EPU&t=1786265885","bonus":"₹90 Bonus Free","rating":4.6,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"High, Bonus, Popular","article":"IND CLUB is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹99 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Games"]},{"id":"game-1787708449556","name":"Hi Rummy","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0IH4nef5TIGgoeh7UV85cn-H4vok2N9rZ7hwJIT6XDZRlQ4POHryh3L5qA-_XBgDtbRCiAT_E2fEaBYeqX6Pv2oCFgrdqxNEGtsz8Ztz5T3z1KeBW_joC9fG6jYqwIT73YFBpu0f1wuwcjf25hWeCEuFq5t6OGyea0RNaf1jTdob4xvkHRhw0YxJCUef1/s1600/hi-rummy.webp","downloadUrl":"https://joinhirummy.com/?code=RX3GS39M14J&t=1787402778","bonus":"₹180 Bonus Free","rating":4.8,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"High, Rating, Bonus","article":"Hi Rummy is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹180 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Bonus","High","New"]},{"id":"game-1787708214263","name":"Ok Rummy","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhod4w3yb9h0x5nBGc_tslEoABkW_SUtuLgXqzQL3FPQn1uzgKW2ieowaiun4Ng1H4RMabbJ4BxATnF2JtaOo6Uv1AImZqvtcKZly0y1wLW_VcgO3Av5snqNt17-bR_KsjtLv-qQxXZk4W0uNXW_2ycIGygQisgZHfryFkzNHw5XFAm5a4UMdExAkj4WKLG/s1600/ok-rummy.webp","downloadUrl":"https://www.okrummy15.com/?code=H2G1CTNG2YU&t=1786247542","bonus":"₹150 Bonus Free","rating":4.7,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"High, New , Popular","article":"OK Rummy is designed especially for new players, offering straightforward Points Rummy tables instead of confusing formats so you can easily understand the scoring rules from the very first hand. The app features minimal menus and large buttons for smooth navigation on smaller mobile screens. With the latest update, you get a ₹150 Bonus Free credited right after registration, giving beginners a risk-free way to practice sequences and sets. Additionally, the minimum payout limit is set to Withdraw ₹100, making it easy to cash out your winnings.","tags":["Trending","Popular","High","New"]},{"id":"game-1787707802085","name":"Boss Rummy","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFNplQ6RcMTSv_lGhhuf5PPID5-EfvXjsso7hZRuYwKYdBQBgk9UJt8NH4OWOOYthhXW-CbZZPN5nbYGEkOEsaql_3tmtT70j8PrudH1lyXkdYyKBDPopG-9TVc7-fLkeOUiiH9T7g_ylk_LD2q0Nd-2YPjcN4s9lsvtdy72G5kttngAe2FvJpzxSm1nuh/s1600/boss rummy logo.png","downloadUrl":"https://www.bossrummyhelp.com/chat/pc/v6/index.html?sysnum=dac87f6cfa234941adc53d80005b1acc","bonus":"₹180 Bonus Free","rating":4.4,"withdraw":"Instant Withdraw Banks","badge":"Verified","description":"Bonus, New, High","article":"Boss Rummy is built for players who want more than a casual game — it puts you straight into VIP-tier tables where the stakes, and the rewards, are bigger. Every match is designed around competitive, skill-first rummy. The app runs a rotating schedule of boss-level tournaments where top finishers climb a leaderboard for bonus payouts on top of regular winnings. Matchmaking keeps tables fair while still rewarding sharper play. New players unlock a ₹58 joining bonus that can be used straight away on any VIP table, and every rupee won is cleared for withdrawal through UPI or bank transfer without unnecessary delays. If you want a rummy app that treats you like a serious player from your very first hand, Boss Rummy's VIP tables and tournament ladder are worth downloading today.","tags":["Games"]},{"id":"game-1787659778723","name":"ABC rummy","category":"Games","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJTTcjwT_nhmfANJdE1E-NYjPikLq_VNk-6qpExys6i7lJ2b_SXSGmYREi2r467J6WKsiTaqi4pMpzu4qUdkmkUiRZXjSnstOWAVAvtuYUEugzXNe9GxY-jfiWGW7EzJYsD2cqgG-TwHD210O9XkA_MI7zBv-WfwwZVxpm9mlK5LfCWASWi5rFSPArvofZ/s1600/ABC-Rummy.webp","downloadUrl":"https://www.abcrummy6.com?code=75CRV7J85B2&t=1755240963","bonus":"₹100 Bonus Free","rating":4.7,"withdraw":"Instant Withdraw Bank","badge":"Verified","description":"High, Bonus, Rating","article":"ABC Rummy is one of the most popular gaming applications in India, offering users an exciting opportunity to earn real money while playing their favorite games. With a user-friendly interface and secure payment system, this app has gained the trust of thousands of players across the country.\n\nThe app features a wide variety of games including Rummy, Teen Patti, Poker, and many other skill-based games that not only provide entertainment but also offer substantial earning opportunities for skilled players.","tags":["Games"]}
+];
+
+        let currentFilter = 'All';
+        let currentSearchQuery = '';
+        let currentSort = 'recommended';
+        let activeModalGame = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initSiteConfig();
+            renderCategories();
+            filterAndRenderPosts();
+            setupEventListeners();
+        });
+
+        function initSiteConfig() {
+            document.getElementById('nav-brand-name').textContent = SITE_CONFIG.brandName;
+            document.getElementById('footer-brand-name').textContent = SITE_CONFIG.brandName;
+            document.getElementById('header-telegram').href = SITE_CONFIG.telegramUrl;
+            document.getElementById('header-whatsapp').href = SITE_CONFIG.whatsappUrl;
+            document.getElementById('hero-telegram-btn').href = SITE_CONFIG.telegramUrl;
+            document.getElementById('footer-telegram').href = SITE_CONFIG.telegramUrl;
+            document.getElementById('footer-whatsapp').href = SITE_CONFIG.whatsappUrl;
+            document.getElementById('footer-tg-link').href = SITE_CONFIG.telegramUrl;
+            document.getElementById('footer-wa-link').href = SITE_CONFIG.whatsappUrl;
+            document.getElementById('modal-tg-link').href = SITE_CONFIG.telegramUrl;
+            document.getElementById('modal-wa-link').href = SITE_CONFIG.whatsappUrl;
+            document.getElementById('stat-apps-count').textContent = window.GAME_STORE_DATA.length + '+';
+            document.getElementById('sticky-bonus-text').textContent = SITE_CONFIG.signupBonus + ' SIGN UP BONUS FREE';
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        }
+
+        function setupEventListeners() {
+            const searchInput = document.getElementById('search-input');
+            const clearSearchBtn = document.getElementById('clear-search-btn');
+            const sortSelect = document.getElementById('sort-select');
+            const resetFiltersBtn = document.getElementById('reset-filters-btn');
+
+            let debounceTimer;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    currentSearchQuery = e.target.value.trim().toLowerCase();
+                    clearSearchBtn.classList.toggle('hidden', currentSearchQuery === '');
+                    filterAndRenderPosts();
+                }, 200);
+            });
+
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                currentSearchQuery = '';
+                clearSearchBtn.classList.add('hidden');
+                filterAndRenderPosts();
+            });
+
+            sortSelect.addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                filterAndRenderPosts();
+            });
+
+            resetFiltersBtn.addEventListener('click', () => {
+                resetAllFilters();
+            });
+
+            const modal = document.getElementById('game-modal');
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeGameModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeGameModal();
+            });
+        }
+
+        function renderCategories() {
+            const categoriesContainer = document.getElementById('category-chips');
+            const categoriesSet = new Set(['All', 'Trending', 'Featured', 'Games', 'Apps', 'Bonus']);
+            
+            window.GAME_STORE_DATA.forEach(post => {
+                if (post.category) categoriesSet.add(post.category);
+                if (post.tags) post.tags.forEach(t => categoriesSet.add(t));
+            });
+
+            const categories = Array.from(categoriesSet);
+            categoriesContainer.innerHTML = '';
+
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                const isActive = currentFilter === cat;
+                btn.className = `px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 ${
+                    isActive 
+                    ? 'bg-goldPrimary text-black shadow-lg shadow-goldPrimary/25' 
+                    : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                }`;
+                btn.textContent = cat;
+                btn.onclick = () => filterByCategory(cat);
+                categoriesContainer.appendChild(btn);
+            });
+        }
+
+        function filterByCategory(cat) {
+            currentFilter = cat;
+            renderCategories();
+            filterAndRenderPosts();
+        }
+
+        function resetAllFilters() {
+            currentFilter = 'All';
+            currentSearchQuery = '';
+            currentSort = 'recommended';
+            document.getElementById('search-input').value = '';
+            document.getElementById('clear-search-btn').classList.add('hidden');
+            document.getElementById('sort-select').value = 'recommended';
+            renderCategories();
+            filterAndRenderPosts();
+            showToast('Filters cleared successfully', 'info');
+        }
+
+        function filterAndRenderPosts() {
+            let posts = [...window.GAME_STORE_DATA];
+
+            if (currentFilter !== 'All') {
+                posts = posts.filter(p => {
+                    if (currentFilter === 'Trending') return p.trending;
+                    if (currentFilter === 'Featured') return p.featured;
+                    if (currentFilter === 'Bonus') return p.bonus && p.bonus.includes('Bonus');
+                    return p.category === currentFilter || (p.tags && p.tags.includes(currentFilter));
+                });
+            }
+
+            if (currentSearchQuery !== '') {
+                posts = posts.filter(p => {
+                    const matchName = p.name.toLowerCase().includes(currentSearchQuery);
+                    const matchCategory = p.category.toLowerCase().includes(currentSearchQuery);
+                    const matchDesc = p.description.toLowerCase().includes(currentSearchQuery);
+                    return matchName || matchCategory || matchDesc;
+                });
+            }
+
+            if (currentSort === 'rating-high') {
+                posts.sort((a, b) => b.rating - a.rating);
+            } else if (currentSort === 'newest') {
+                posts.reverse();
+            } else if (currentSort === 'trending') {
+                posts.sort((a, b) => (b.trending === true) - (a.trending === true));
+            }
+
+            renderFeaturedSection(posts);
+            renderMainGrid(posts);
+            updateResultCount(posts.length, window.GAME_STORE_DATA.length);
+        }
+
+        function updateResultCount(filteredCount, totalCount) {
+            document.getElementById('result-count-text').textContent = `Showing ${filteredCount} of ${totalCount} posts`;
+            document.getElementById('active-filter-badge').textContent = currentFilter !== 'All' ? `Filter: ${currentFilter}` : '';
+        }
+
+        function renderFeaturedSection(posts) {
+            const featuredContainer = document.getElementById('featured-container');
+            const featuredGrid = document.getElementById('featured-grid');
+            const featuredPosts = posts.filter(p => p.featured);
+
+            if (featuredPosts.length === 0 || (currentFilter !== 'All' && currentFilter !== 'Featured')) {
+                featuredContainer.classList.add('hidden');
+                return;
+            }
+
+            featuredContainer.classList.remove('hidden');
+            featuredGrid.innerHTML = '';
+            featuredPosts.slice(0, 8).forEach(post => {
+                featuredGrid.appendChild(createCardElement(post));
+            });
+        }
+
+        function renderMainGrid(posts) {
+            const grid = document.getElementById('games-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            if (posts.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            posts.forEach(post => {
+                grid.appendChild(createCardElement(post));
+            });
+        }
+
+        function createCardElement(post) {
+            const card = document.createElement('div');
+            card.className = `bg-cardBg hover:bg-cardHover border border-slate-800/90 hover:border-goldPrimary/40 rounded-2xl p-2 sm:p-3 flex flex-col justify-between transition-all duration-300 group shadow-lg hover:shadow-glow-gold relative overflow-hidden`;
+            
+            card.innerHTML = `
+                <div>
+                    <div class="relative rounded-xl overflow-hidden mb-2 sm:mb-3 aspect-square bg-slate-900 border border-slate-800">
+                        <img src="${post.image}" alt="${post.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=500&auto=format&fit=crop&q=60'">
+                        ${post.badge ? `<span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[9px] font-bold text-emerald-400 border border-emerald-500/30">${post.badge}</span>` : ''}
+                        ${post.trending ? `<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-md bg-goldPrimary/90 backdrop-blur-md text-[9px] font-extrabold text-black">🔥 Hot</span>` : ''}
+                    </div>
+
+                    <div class="flex items-start justify-between gap-1 mb-1">
+                        <h3 class="font-bold text-xs sm:text-sm text-white group-hover:text-goldPrimary transition-colors line-clamp-1">${post.name}</h3>
+                        <div class="flex items-center gap-0.5 text-[10px] sm:text-xs font-bold text-amber-400 shrink-0">
+                            <span>★</span>
+                            <span>${post.rating}</span>
+                        </div>
+                    </div>
+
+                    <p class="text-[11px] text-slate-400 line-clamp-2 mb-2 leading-relaxed hidden sm:block">${post.description}</p>
+                </div>
+
+                <div>
+                    <div class="bg-slate-900/90 border border-goldPrimary/20 rounded-xl p-1.5 sm:p-2 mb-2 text-center">
+                        <div class="text-[9px] uppercase font-bold text-goldPrimary tracking-wider hidden sm:block">Sign Up Bonus</div>
+                        <div class="text-[11px] sm:text-xs font-black text-white">${post.bonus}</div>
+                    </div>
+
+                    <button onclick="openGameModal('${post.id}')" class="w-full py-2 rounded-xl bg-gradient-to-r from-goldPrimary to-amber-500 hover:from-amber-400 hover:to-goldPrimary text-black font-black text-[10px] sm:text-xs shadow-md shadow-goldPrimary/20 flex items-center justify-center gap-1 transition-all">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        <span>DOWNLOAD</span>
+                    </button>
+                </div>
+            `;
+            return card;
+        }
+
+        function openGameModal(postId) {
+            const post = window.GAME_STORE_DATA.find(p => p.id === postId);
+            if (!post) return;
+
+            activeModalGame = post;
+
+            document.getElementById('modal-img').src = post.image;
+            document.getElementById('modal-title').textContent = post.name;
+            document.getElementById('modal-category').textContent = post.category;
+            document.getElementById('modal-rating').textContent = `★ ${post.rating}`;
+            document.getElementById('modal-bonus').textContent = post.bonus;
+            document.getElementById('modal-withdraw').textContent = post.withdraw;
+            document.getElementById('modal-article').textContent = post.article || post.description;
+
+            // Timer box ko agar HTML me rakha hai toh hide kar dein ya zaroorat nahi hai
+            const timerBox = document.getElementById('timer-box');
+            if (timerBox) timerBox.classList.add('hidden');
+
+            const socialBox = document.getElementById('social-join-box');
+            if (socialBox) socialBox.classList.remove('hidden'); // Agar social join dikhana ho toh dikha sakte hain, ya hide bhi kar sakte hain
+
+            const btnText = document.getElementById('modal-btn-text');
+            const actionBtn = document.getElementById('modal-action-btn');
+            
+            actionBtn.disabled = false;
+            actionBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            btnText.textContent = "DOWNLOAD APK NOW";
+            
+            actionBtn.onclick = () => {
+                showToast('Initiating direct download...', 'success');
+                window.open(activeModalGame.downloadUrl, '_blank');
+                closeGameModal();
+            };
+
+            const modal = document.getElementById('game-modal');
+            const modalCard = document.getElementById('modal-card');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalCard.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeGameModal() {
+            const modal = document.getElementById('game-modal');
+            const modalCard = document.getElementById('modal-card');
+            modal.classList.add('opacity-0');
+            modalCard.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                activeModalGame = null;
+            }, 300);
+        }
+
+        function openTopBonusApp() {
+            const topGame = window.GAME_STORE_DATA.find(p => p.featured) || window.GAME_STORE_DATA[0];
+            if (topGame) openGameModal(topGame.id);
+        }
+
+        function scrollToGames() {
+            document.getElementById('games-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            const isOpen = !content.classList.contains('hidden');
+
+            document.querySelectorAll('.faq-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('#faq-accordion svg').forEach(el => el.classList.remove('rotate-180'));
+
+            if (!isOpen) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-emerald-950/90 border-emerald-500/50 text-emerald-300' : 'bg-slate-900/90 border-slate-700 text-slate-200';
+            
+            toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border backdrop-blur-xl shadow-xl text-xs sm:text-sm font-semibold flex items-center gap-2 transform translate-y-2 opacity-0 transition-all duration-300 ${bgColor}`;
+            toast.innerHTML = `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span>${message}</span>`;
+
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        } //]]>
+    </script>
+
+
+</div>
+  
+<!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: &#39;class&#39;,
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: &#39;#141b26&#39;,
+                            950: &#39;#0a0d14&#39;,
+                        },
+                        amber: {
+                            450: &#39;#f59e0b&#39;,
+                            550: &#39;#d97706&#39;,
+                        }
+                    },
+                    boxShadow: {
+                        &#39;glow-gold&#39;: &#39;0 0 20px -5px rgba(245, 158, 11, 0.4)&#39;,
+                        &#39;glow-gold-lg&#39;: &#39;0 0 35px -5px rgba(245, 158, 11, 0.6)&#39;,
+                        &#39;glow-cyan&#39;: &#39;0 0 20px -5px rgba(6, 182, 212, 0.4)&#39;,
+                        &#39;glow-cyan-lg&#39;: &#39;0 0 35px -5px rgba(6, 182, 212, 0.6)&#39;,
+                        &#39;glow-green&#39;: &#39;0 0 20px -5px rgba(16, 185, 129, 0.4)&#39;,
+                    },
+                    animation: {
+                        &#39;float&#39;: &#39;float 6s ease-in-out infinite&#39;,
+                        &#39;pulse-slow&#39;: &#39;pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite&#39;,
+                        &#39;spin-slow&#39;: &#39;spin 8s linear infinite&#39;,
+                    },
+                    keyframes: {
+                        float: {
+                            &#39;0%, 100%&#39;: { transform: &#39;translateY(0)&#39; },
+                            &#39;50%&#39;: { transform: &#39;translateY(-10px)&#39; },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base styles and reduced motion */
+        .pop-sec-1 {
+            background-color: #0a0d14;
+            color: #f8fafc;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(20, 27, 38, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0d14; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+        
+        /* Hide scrollbar when modal open but prevent layout shift */
+        .modal-open {
+            overflow: hidden;
+            padding-right: var(--scrollbar-width, 0px);
+        }
+    </style>
+
+<div class='pop-sec-1 antialiased min-h-screen flex flex-col relative overflow-x-hidden'>
+
+    <!-- ========================================== -->
+    <!-- MOCK CONTENT FOR DEMONSTRATION             -->
+    <!-- ========================================== -->
+    
+
+    <!-- ========================================== -->
+    <!-- PREMIUM SOCIAL SYSTEM INJECTION POINT      -->
+    <!-- ========================================== -->
+    
+    <!-- Floating Action Button System -->
+    <div class='fixed right-4 bottom-24 sm:right-6 sm:bottom-8 z-40 flex flex-col items-end pointer-events-none' id='fab-container'>
+        
+        <!-- Expandable Menu -->
+        <div class='flex flex-col items-end gap-3 mb-4 pointer-events-none' id='fab-menu'>
+            <!-- Buttons dynamically injected here via JS -->
+        </div>
+
+        <!-- Main Toggle Button -->
+        <button aria-expanded='false' aria-label='Open Actions Menu' class='pointer-events-auto relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-slate-800 to-slate-700 text-amber-400 border border-amber-500/30 shadow-glow-gold transition-all duration-300 hover:scale-105 active:scale-95 z-50' id='fab-main'>
+            <!-- Hover Glow Overlay -->
+            <div class='absolute inset-0 rounded-full bg-amber-400/10 opacity-0 hover:opacity-100 transition-opacity duration-300'/>
+            
+            <i class='fas fa-plus text-xl sm:text-2xl transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]' id='fab-icon'/>
+        </button>
+    </div>
+
+    <!-- Premium Social Popup Modal -->
+    <div aria-labelledby='popup-title' aria-modal='true' class='fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500 backdrop-blur-md bg-black/70' id='social-popup-overlay' role='dialog'>
+        
+        <!-- Modal Card -->
+        <div class='relative w-[calc(100%-2rem)] max-w-[420px] glass-panel rounded-2xl p-6 sm:p-8 transform scale-90 translate-y-4 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-2xl overflow-hidden' id='social-popup-card'>
+            
+            <!-- Animated Background Glows inside Modal -->
+            <div class='absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-[50px] animate-pulse-slow'/>
+            <div class='absolute -bottom-24 -left-24 w-48 h-48 bg-cyan-500/20 rounded-full blur-[50px] animate-pulse-slow' style='animation-delay: 2s;'/>
+            
+            <!-- Close Button -->
+            <button aria-label='Close' class='absolute top-4 right-4 text-slate-400 hover:text-white transition-colors duration-200 z-10 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10' id='close-popup-btn'>
+                <i class='fas fa-times text-lg'/>
+            </button>
+
+            <!-- Header / Icon Area -->
+            <div class='flex flex-col items-center text-center relative z-10 mb-6 mt-2'>
+                <div class='relative w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mb-4 shadow-glow-gold animate-float'>
+                    <div class='absolute inset-[2px] rounded-full bg-slate-900 flex items-center justify-center'>
+                        <i class='fas fa-crown text-amber-400 text-2xl'/>
+                    </div>
+                    <!-- Decorative Ring -->
+                    <div class='absolute inset-[-4px] rounded-full border border-amber-500/30 border-dashed animate-spin-slow'/>
+                </div>
+                
+                <p class='text-amber-400 tracking-[0.2em] text-xs font-bold mb-2'>&#10022; VIP EXCLUSIVE &#10022;</p>
+                <h2 class='text-2xl font-bold text-white mb-2' id='popup-title'>Join Our Community</h2>
+                <p class='text-slate-300 text-sm leading-relaxed'>Stay updated with the latest gaming news, exclusive bonuses, and community events.</p>
+            </div>
+
+            <!-- Call to Actions -->
+            <div class='flex flex-col gap-3 relative z-10'>
+                <a class='group relative w-full flex items-center justify-between px-5 py-3.5 rounded-xl bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 hover:border-cyan-400/60 hover:shadow-glow-cyan transition-all duration-300 overflow-hidden active:scale-[0.98]' href='https://t.me/yonoviphub' id='popup-telegram-btn' rel='noopener noreferrer' target='_blank'>
+                    <div class='absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-400/10 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out'/>
+                    <div class='flex items-center gap-3'>
+                        <i class='fab fa-telegram-plane text-cyan-400 text-xl group-hover:scale-110 transition-transform'/>
+                        <span class='text-slate-100 font-semibold'>Join Telegram</span>
+                    </div>
+                    <i class='fas fa-chevron-right text-slate-500 group-hover:text-cyan-400 transition-colors text-sm'/>
+                </a>
+
+                <a class='group relative w-full flex items-center justify-between px-5 py-3.5 rounded-xl bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30 hover:border-emerald-400/60 hover:shadow-glow-green transition-all duration-300 overflow-hidden active:scale-[0.98]' href='https://whatsapp.com/channel/0029Vb6OIJf42DcmmDX9EC0H' id='popup-whatsapp-btn' rel='noopener noreferrer' target='_blank'>
+                    <div class='absolute inset-0 bg-gradient-to-r from-green-600/0 via-green-400/10 to-emerald-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out'/>
+                    <div class='flex items-center gap-3'>
+                        <i class='fab fa-whatsapp text-emerald-400 text-xl group-hover:scale-110 transition-transform'/>
+                        <span class='text-slate-100 font-semibold'>Join WhatsApp</span>
+                    </div>
+                    <i class='fas fa-chevron-right text-slate-500 group-hover:text-emerald-400 transition-colors text-sm'/>
+                </a>
+            </div>
+
+            <!-- Footer Action -->
+            <div class='mt-5 text-center relative z-10'>
+                <button class='text-xs text-slate-400 hover:text-amber-400 transition-colors duration-200 border-b border-transparent hover:border-amber-400 pb-0.5' id='close-popup-text-btn'>
+                    Maybe Later
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Notification Toast (Fallback) -->
+    <div class='fixed bottom-6 left-1/2 transform -translate-x-1/2 z-[60] flex items-center gap-3 bg-slate-800/90 backdrop-blur-md border border-amber-500/30 shadow-glow-gold rounded-full px-5 py-3 opacity-0 translate-y-8 pointer-events-none transition-all duration-300' id='share-toast'>
+        <i class='fas fa-check-circle text-amber-400'/>
+        <span class='text-sm font-medium text-slate-100'>Link copied successfully!</span>
+    </div>
+</div>
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT ARCHITECTURE                    -->
+    <!-- ========================================== -->
+    <script type='text/javascript'><![CDATA[
+        /**
+         * 1. CENTRAL CONFIGURATION
+         * Edit these values to update URLs and text across the entire system.
+         */
+        const SITE_CONFIG = {
+            whatsappUrl: "https://whatsapp.com/channel/0029Vb6OIJf42DcmmDX9EC0H", // Replace with your WhatsApp Link
+            telegramUrl: "https://t.me/yonoviphub",   // Replace with your Telegram Link
+            websiteUrl: "https://example.com",       // Replace with your Website Link
+            shareTitle: "Premium Gaming Hub",
+            shareText: "Explore our premium gaming collection and join the VIP community.",
+            popupEnabled: true,
+            popupDelay: 20000, // 20 seconds (20000ms)
+            popupCooldown: 12 * 60 * 60 * 1000 // 12 hours in milliseconds
+        };
+
+        /**
+         * 2. DATA-DRIVEN ACTION BUTTONS (FAB)
+         * Easily extendable array of actions for the floating menu.
+         */
+        const FLOATING_ACTIONS = [
+            {
+                id: "whatsapp",
+                label: "WhatsApp",
+                icon: "fab fa-whatsapp",
+                url: SITE_CONFIG.whatsappUrl,
+                colors: "from-green-600 to-emerald-500",
+                iconColor: "text-white",
+                glow: "shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.7)]",
+                type: "link"
+            },
+            {
+                id: "telegram",
+                label: "Telegram",
+                icon: "fab fa-telegram-plane",
+                url: SITE_CONFIG.telegramUrl,
+                colors: "from-blue-600 to-cyan-500",
+                iconColor: "text-white",
+                glow: "shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.7)]",
+                type: "link"
+            },
+            {
+                id: "website",
+                label: "Visit Website",
+                icon: "fas fa-globe",
+                url: SITE_CONFIG.websiteUrl,
+                colors: "from-slate-700 to-slate-600",
+                iconColor: "text-amber-400",
+                glow: "shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)]",
+                type: "link"
+            },
+            {
+                id: "share",
+                label: "Share",
+                icon: "fas fa-share-alt",
+                colors: "from-amber-600 to-amber-500",
+                iconColor: "text-slate-900",
+                glow: "shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.7)]",
+                type: "share"
+            }
+        ];
+
+        /**
+         * 3. STATE MANAGEMENT
+         */
+        let isFabOpen = false;
+        let isPopupOpen = false;
+        let popupTimer = null;
+
+        /**
+         * 4. INITIALIZATION
+         */
+        document.addEventListener("DOMContentLoaded", initPremiumSocialSystem);
+
+        function initPremiumSocialSystem() {
+            // Measure scrollbar width to prevent layout shift during modal open
+            document.documentElement.style.setProperty('--scrollbar-width', (window.innerWidth - document.documentElement.clientWidth) + 'px');
+
+            initFloatingActionButton();
+            
+            if (SITE_CONFIG.popupEnabled) {
+                initPopupSystem();
+            }
+        }
+
+        /**
+         * 5. FLOATING ACTION BUTTON LOGIC
+         */
+        function initFloatingActionButton() {
+            const menuContainer = document.getElementById('fab-menu');
+            const mainBtn = document.getElementById('fab-main');
+            
+            // Build buttons from configuration
+            FLOATING_ACTIONS.forEach((action, index) => {
+                // Determine structure based on type
+                const isLink = action.type === 'link';
+                const tag = isLink ? 'a' : 'button';
+                const hrefAttr = isLink ? `href="${action.url}" target="_blank" rel="noopener noreferrer"` : '';
+                
+                // Create element wrapping container (for tooltip alignment)
+                const itemEl = document.createElement('div');
+                itemEl.className = 'flex items-center justify-end gap-3 transition-all duration-300 transform opacity-0 translate-y-4 pointer-events-none group';
+                itemEl.id = `fab-item-${action.id}`;
+                
+                // Reverse staggering: bottom buttons animate first
+                const delay = (FLOATING_ACTIONS.length - 1 - index) * 50; 
+                itemEl.style.transitionDelay = `${delay}ms`;
+
+                itemEl.innerHTML = `
+                    <!-- Label/Tooltip -->
+                    <span class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-sm font-medium shadow-lg backdrop-blur-md opacity-90 sm:opacity-0 sm:group-hover:opacity-100 sm:translate-x-2 sm:group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
+                        ${action.label}
+                    </span>
+                    
+                    <!-- Action Button -->
+                    <${tag} ${hrefAttr} class="pointer-events-auto flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-tr ${action.colors} border border-white/10 ${action.glow} transition-transform duration-200 hover:scale-110 active:scale-95" aria-label="${action.label}">
+                        <i class="${action.icon} ${action.iconColor} text-lg"></i>
+                    </${tag}>
+                `;
+
+                if (action.type === 'share') {
+                    // Bind share event to the actual button inside the wrapper
+                    const btn = itemEl.querySelector('button');
+                    btn.addEventListener('click', handleShare);
+                }
+
+                menuContainer.appendChild(itemEl);
+            });
+
+            // Bind Main Toggle
+            mainBtn.addEventListener('click', toggleFloatingMenu);
+
+            // Close menu if clicked outside
+            document.addEventListener('click', (e) => {
+                if (isFabOpen && !document.getElementById('fab-container').contains(e.target)) {
+                    toggleFloatingMenu();
+                }
+            });
+        }
+
+        function toggleFloatingMenu() {
+            isFabOpen = !isFabOpen;
+            const menuContainer = document.getElementById('fab-menu');
+            const mainBtn = document.getElementById('fab-main');
+            const icon = document.getElementById('fab-icon');
+            
+            // Update ARIA
+            mainBtn.setAttribute('aria-expanded', isFabOpen);
+
+            if (isFabOpen) {
+                // Open State
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-times');
+                icon.classList.add('rotate-90');
+                
+                menuContainer.classList.remove('pointer-events-none');
+                
+                // Animate items in
+                const items = menuContainer.children;
+                for (let i = 0; i < items.length; i++) {
+                    items[i].classList.remove('opacity-0', 'translate-y-4');
+                    items[i].classList.add('opacity-100', 'translate-y-0');
+                }
+            } else {
+                // Close State
+                icon.classList.remove('fa-times', 'rotate-90');
+                icon.classList.add('fa-plus');
+                
+                menuContainer.classList.add('pointer-events-none');
+                
+                // Animate items out
+                const items = menuContainer.children;
+                for (let i = 0; i < items.length; i++) {
+                    items[i].classList.add('opacity-0', 'translate-y-4');
+                    items[i].classList.remove('opacity-100', 'translate-y-0');
+                }
+            }
+        }
+
+        /**
+         * 6. SHARE FUNCTIONALITY
+         */
+        async function handleShare(e) {
+            e.preventDefault();
+            
+            const shareData = {
+                title: SITE_CONFIG.shareTitle,
+                text: SITE_CONFIG.shareText,
+                url: window.location.href
+            };
+
+            if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    // User aborted or failed
+                    console.log("Share API error/abort:", err);
+                    if (err.name !== 'AbortError') {
+                        fallbackCopyUrl();
+                    }
+                }
+            } else {
+                fallbackCopyUrl();
+            }
+            
+            // Close FAB menu after sharing action
+            if (isFabOpen) toggleFloatingMenu();
+        }
+
+        function fallbackCopyUrl() {
+            // Using modern clipboard API or fallback to execCommand if needed
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(window.location.href).then(showShareToast);
+            } else {
+                // Fallback for older browsers / non-https
+                let textArea = document.createElement("textarea");
+                textArea.value = window.location.href;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showShareToast();
+                } catch (err) {
+                    console.error('Fallback copy failed', err);
+                }
+                textArea.remove();
+            }
+        }
+
+        function showShareToast() {
+            const toast = document.getElementById('share-toast');
+            toast.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+            }, 3000);
+        }
+
+        /**
+         * 7. PREMIUM POPUP LOGIC
+         */
+        function initPopupSystem() {
+            // Check Cooldown
+            if (!shouldShowSocialPopup()) return;
+
+            // Setup bindings
+            setupPopupBindings();
+
+            // Start Timer
+            popupTimer = setTimeout(openSocialPopup, SITE_CONFIG.popupDelay);
+        }
+
+        function shouldShowSocialPopup() {
+            const lastShown = localStorage.getItem("premiumSocialPopupLastShown");
+            if (!lastShown) return true;
+
+            const timeSinceLastShow = Date.now() - parseInt(lastShown, 10);
+            return timeSinceLastShow > SITE_CONFIG.popupCooldown;
+        }
+
+        function setupPopupBindings() {
+            // Inject URLs into modal buttons
+            document.getElementById('popup-telegram-btn').href = SITE_CONFIG.telegramUrl;
+            document.getElementById('popup-whatsapp-btn').href = SITE_CONFIG.whatsappUrl;
+
+            // Close triggers
+            document.getElementById('close-popup-btn').addEventListener('click', closeSocialPopup);
+            document.getElementById('close-popup-text-btn').addEventListener('click', closeSocialPopup);
+            
+            // Close on outside click
+            document.getElementById('social-popup-overlay').addEventListener('click', (e) => {
+                if (e.target.id === 'social-popup-overlay') closeSocialPopup();
+            });
+
+            // Close on ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isPopupOpen) closeSocialPopup();
+            });
+        }
+
+        function openSocialPopup() {
+            if (isPopupOpen) return;
+            isPopupOpen = true;
+
+            const overlay = document.getElementById('social-popup-overlay');
+            const card = document.getElementById('social-popup-card');
+
+            // Show UI
+            overlay.classList.remove('opacity-0', 'pointer-events-none', 'hidden');
+            
+            // Force reflow for animations
+            void overlay.offsetWidth; 
+
+            // Animate In
+            overlay.classList.add('opacity-100');
+            card.classList.remove('scale-90', 'translate-y-4');
+            card.classList.add('scale-100', 'translate-y-0');
+
+            // Lock Body Scroll
+            document.body.classList.add('modal-open');
+
+            // Record timestamp in localStorage to activate cooldown
+            localStorage.setItem("premiumSocialPopupLastShown", Date.now().toString());
+        }
+
+        function closeSocialPopup() {
+            if (!isPopupOpen) return;
+            isPopupOpen = false;
+
+            const overlay = document.getElementById('social-popup-overlay');
+            const card = document.getElementById('social-popup-card');
+
+            // Animate Out
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0');
+            
+            card.classList.remove('scale-100', 'translate-y-0');
+            card.classList.add('scale-90', 'translate-y-4');
+
+            // Wait for transition to finish before hiding completely
+            setTimeout(() => {
+                overlay.classList.add('pointer-events-none');
+                // Restore body scroll
+                document.body.classList.remove('modal-open');
+            }, 500); // Matches the duration-500 class
+        }
+    //]]></script>
