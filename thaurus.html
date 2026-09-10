@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earn Real Money Online with App</title>
+    <title>Taurus Cash App - Download & Earn Real Money Online</title>
+    <meta name="description" content="Discover diverse earning methods on Taurus Cash APK. Complete simple tasks, play skill-based games, refer friends, and earn real cash rewards daily with zero investment.">
+    <meta name="keywords" content="Taurus App, money earning app, online earning, rummy games, cash rewards, zero investment earning">
+    <meta name="author" content="AGS Empire">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://yourdomain.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://yourdomain.com/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://yourdomain.com/apple-touch-icon.png">
+    <link rel="shortcut icon" href="https://yourdomain.com/favicon.ico">
+
+    <!-- Open Graph / Facebook & WhatsApp Meta Tags (Image Sharing) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="Taurus Cash App - Download & Earn Real Money Online">
+    <meta property="og:description" content="Join millions of users earning real cash daily through simple tasks, games, and instant UPI withdrawals. Claim your ₹2,000 welcome reward now!">
+    <meta property="og:image" content="https://yourdomain.com/assets/images/share-banner.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Taurus App">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://yourdomain.com/">
+    <meta name="twitter:title" content="Taurus Cash App - Download & Earn Real Money Online">
+    <meta name="twitter:description" content="Join millions of users earning real cash daily through simple tasks, games, and instant UPI withdrawals. Claim your ₹2,000 welcome reward now!">
+    <meta name="twitter:image" content="https://yourdomain.com/assets/images/share-banner.jpg">
+
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#070a12">
     <!-- Tailwind CSS CDN Link -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome & Google Fonts -->
@@ -494,6 +525,538 @@
             });
         });
     </script>
+
+    <!-- Section 9: Dynamic Games List Section -->
+    <section class="bg-[#0b0f19] py-10 px-4 text-white text-left">
+        <div class="max-w-[480px] mx-auto">
+            
+            <!-- Widget Title Header -->
+            <div class="flex items-center justify-between mb-5 border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-6 bg-orange-500 rounded-full"></span>
+                    <h3 id="sectionWidgetTitle" class="text-white text-lg font-black tracking-wide uppercase">
+                        <!-- Widget Title Loaded via JS or Default -->
+                        Popular Rummy & Casino Games
+                    </h3>
+                </div>
+                <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                    Live Updates
+                </span>
+            </div>
+
+            <!-- Games Container (Loaded via JavaScript) -->
+            <div id="dynamicGamesContainer" class="grid grid-cols-2 gap-3">
+                <!-- JavaScript will inject game cards here dynamically -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- JavaScript to Load Widget Title & Games List Data -->
+    <script>
+        // 1. Widget Title Configuration
+        const widgetTitle = "Top Recommended Games";
+        document.getElementById('sectionWidgetTitle').textContent = widgetTitle;
+
+        // 2. Games List Data Array (Aap yahan naye games add ya modify kar sakte hain)
+        const gamesData = [
+            {
+                name: "Taurus Master",
+                rating: "4.9",
+                downloads: "1M+ Downloads",
+                bonus: "₹500 Bonus",
+                badge: "Verified",
+                imageBg: "from-purple-600 to-indigo-800",
+                url: "#download"
+            },
+            {
+                name: "Teen Patti Gold",
+                rating: "4.8",
+                downloads: "5M+ Downloads",
+                bonus: "₹100 Bonus",
+                badge: "Trusted",
+                imageBg: "from-blue-600 to-cyan-700",
+                url: "#download"
+            },
+            {
+                name: "Rummy Wealth",
+                rating: "4.7",
+                downloads: "800K+ Downloads",
+                bonus: "₹200 Bonus",
+                badge: "Verified",
+                imageBg: "from-emerald-600 to-teal-800",
+                url: "#download"
+            },
+{
+                name: "Rummy Wealth",
+                rating: "4.7",
+                downloads: "800K+ Downloads",
+                bonus: "₹200 Bonus",
+                badge: "Verified",
+                imageBg: "from-emerald-600 to-teal-800",
+                url: "#download"
+            },
+            {
+                name: "Casino Royale",
+                rating: "4.6",
+                downloads: "500K+ Downloads",
+                bonus: "₹300 Bonus",
+                badge: "New",
+                imageBg: "from-orange-600 to-red-700",
+                url: "#download"
+            }
+        ];
+
+        // 3. Function to Render Games Dynamically
+        function loadGamesList() {
+            const container = document.getElementById('dynamicGamesContainer');
+            container.innerHTML = ""; // Clear container
+
+            gamesData.forEach(game => {
+                const gameCard = `
+                    <div class="bg-slate-900 border border-slate-800 hover:border-slate-700 p-3 rounded-2xl flex flex-col justify-between shadow-lg transition-all">
+                        <div>
+                            <!-- Game Icon / Banner -->
+                           <div class="w-full aspect-square rounded-xl bg-gradient-to-br ${game.imageBg} flex items-center justify-center font-black text-white text-xs shadow-inner mb-2.5">
+    ${game.name}
+</div>
+
+                            
+                            <!-- Game Name & Rating -->
+                            <h4 class="font-bold text-xs text-white truncate mb-1">${game.name}</h4>
+                            <div class="flex items-center justify-between text-[11px] mb-2">
+                                <span class="text-yellow-400 font-bold flex items-center gap-1">
+                                    ${game.rating} <i class="fa-solid fa-star text-[9px]"></i>
+                                </span>
+                                <span class="text-emerald-400 font-extrabold text-[10px]">${game.bonus}</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Download Button -->
+                        <a href="${game.url}" class="w-full py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl text-xs font-bold text-center shadow-md shadow-orange-600/30 transition-transform active:scale-95 block">
+                            <i class="fa-solid fa-download mr-1 text-[10px]"></i> Download
+                        </a>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', gameCard);
+            });
+        }
+
+        // Run function on page load
+        document.addEventListener('DOMContentLoaded', loadGamesList);
+    </script>
+
+    <!-- Section 5: Download CTA & Frequently Asked Questions (FAQ) -->
+    <section class="bg-gradient-to-b from-emerald-600 to-emerald-700 py-10 px-5 text-center text-white">
+        <div class="max-w-[460px] mx-auto">
+            
+            <!-- Top Call-to-Action Banner -->
+            <div class="mb-10">
+                <h2 class="text-yellow-300 text-2xl font-black leading-tight mb-2">
+                    Download Taurus App and Start Earning Now
+                </h2>
+                <p class="text-emerald-100 text-xs leading-relaxed mb-6">
+                    Join millions of savvy users in realising your dreams with Taurus. Your first ₹2,000 reward awaits!
+                </p>
+
+                <!-- Start Earning Button -->
+                <a href="#download" class="block w-full py-3.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl text-base font-bold shadow-lg shadow-orange-600/40 text-center active:scale-95 transition-transform mb-5">
+                    Start Earning Now
+                </a>
+
+                <!-- App Store Badges -->
+                <div class="grid grid-cols-2 gap-3">
+                    <!-- Google Play Badge -->
+                    <div class="bg-white text-slate-900 p-2.5 rounded-xl shadow flex items-center gap-2 text-left">
+                        <i class="fa-brands fa-google-play text-blue-600 text-2xl"></i>
+                        <div>
+                            <div class="text-[9px] font-bold text-slate-500 uppercase tracking-tight">Google Play</div>
+                            <div class="flex items-center gap-0.5 text-[10px] text-yellow-500 font-bold">
+                                4.8 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App Store Badge -->
+                    <div class="bg-white text-slate-900 p-2.5 rounded-xl shadow flex items-center gap-2 text-left">
+                        <i class="fa-brands fa-app-store text-slate-900 text-2xl"></i>
+                        <div>
+                            <div class="text-[9px] font-bold text-slate-500 uppercase tracking-tight">Apple App Store</div>
+                            <div class="flex items-center gap-0.5 text-[10px] text-yellow-500 font-bold">
+                                4.9 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section Header -->
+            <div class="text-left mb-6">
+                <h3 class="text-white text-xl font-extrabold mb-1">Frequently Asked Questions</h3>
+                <p class="text-emerald-100 text-xs">Everything you need to know about getting started.</p>
+            </div>
+
+            <!-- FAQ Accordion Container -->
+            <div class="flex flex-col gap-2.5 text-left" id="faqAccordion">
+                
+                <!-- FAQ Item 1 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>What is the Taurus money-making app?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Taurus is a secure and reliable mobile platform where you can complete simple everyday tasks, play games, and refer friends to earn real cash rewards daily.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>Is Taurus legal?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Yes, Taurus is completely legitimate and operates transparently, providing guaranteed payouts and secure data protection for millions of active users.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>How much money can I really make with Taurus?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Your earnings depend on the time and tasks you complete. Active users make anywhere from a few thousand rupees to over ₹50,000 monthly as a steady secondary income.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>How and when do I get paid?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Withdrawals can be requested starting from as low as ₹10, and payouts are processed swiftly directly to your linked bank account or UPI.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>Is Taurus free to use? Is it zero-investment?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Yes, 100% free! There are zero investment requirements or hidden fees needed to join or participate in tasks.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>What kind of tasks will I need to do?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Tasks include watching short promotional videos, testing new applications, filling out brief surveys, and participating in fun gaming challenges.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>Is the Taurus application user-friendly?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Absolutely, the app features a clean, simple layout designed so anyone can navigate and start earning within minutes without technical knowledge.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>What are the best ways to earn money online?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Combining daily high-yield task completions with referral programs and interactive gaming missions yields the fastest and highest returns.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 9 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>Which earning method yields the highest returns in the Taurus app?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Gaming missions and referral bonuses generally provide the highest reward payouts compared to basic individual assignments.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 10 -->
+                <div class="bg-emerald-800/90 border border-emerald-500/40 rounded-xl overflow-hidden shadow-sm">
+                    <button class="faq-btn w-full py-3.5 px-4 flex items-center justify-between text-white font-bold text-xs focus:outline-none">
+                        <span>Is the Taurus App suitable for students to earn money online?</span>
+                        <i class="fa-solid fa-plus text-emerald-300 transition-transform duration-200 faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-4 pb-3 text-[11px] text-emerald-100 leading-relaxed border-t border-emerald-700/50 pt-2">
+                        Yes, it's ideal for students because it requires zero investment and can be used flexibly during spare time between studies or classes.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- JavaScript for FAQ Accordion Toggle -->
+    <script>
+        const faqButtons = document.querySelectorAll('.faq-btn');
+
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('.faq-icon');
+
+                // Toggle current item
+                content.classList.toggle('hidden');
+                
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('fa-minus', 'rotate-180');
+                    icon.classList.add('fa-plus');
+                } else {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus', 'rotate-180');
+                }
+            });
+        });
+    </script>
+    <!-- Section 6: India's Top Rummy Games Download Platform -->
+    <section class="bg-[#0b0f19] py-10 px-4 text-white text-center">
+        <div class="max-w-[480px] mx-auto">
+            
+            <!-- Top Tag -->
+            <div class="inline-block bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-4 shadow-sm">
+                ALLRUMMY55 INFORMS YOU
+            </div>
+
+            <!-- Main Headings -->
+            <h2 class="text-white text-2xl font-black leading-tight mb-2">
+                India's Top Rummy Games<br>Download Platform
+            </h2>
+            <p class="text-slate-400 text-xs leading-relaxed mb-8">
+                Download verified apps instantly, get daily bonuses, and enjoy lightning-fast withdrawals securely.
+            </p>
+
+            <!-- Cards Container (3 Cards) -->
+            <div class="grid grid-cols-3 gap-2.5 items-center">
+                
+                <!-- Card 2 (Left - Rank 2) -->
+                <div class="bg-slate-900 border border-slate-800 p-3 rounded-2xl flex flex-col items-center relative shadow-lg">
+                    <span class="absolute -top-2.5 bg-amber-500 text-slate-950 text-xs font-black w-6 h-6 rounded-full flex items-center justify-center shadow">2</span>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mb-2 overflow-hidden shadow border border-slate-700">
+                        <span class="font-black text-blue-400 text-[11px]">1CEO</span>
+                    </div>
+                    <h3 class="font-bold text-[11px] text-white truncate w-full text-center mb-1">CEO NO. 1 G...</h3>
+                    <div class="flex items-center gap-1 text-[11px] text-yellow-400 font-bold mb-2">
+                        4.4 <i class="fa-solid fa-star text-[9px]"></i>
+                    </div>
+                    <div class="text-[9px] text-emerald-400 font-bold flex items-center gap-1 mb-3 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-500/20">
+                        <i class="fa-solid fa-check"></i> Verified
+                    </div>
+                    <a href="#download" class="w-full py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-[10px] font-bold shadow mb-1.5 block text-center transition-transform active:scale-95">
+                        <i class="fa-solid fa-download mr-1"></i> Download
+                    </a>
+                    <button class="w-full py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-[10px] font-semibold flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-share-nodes text-[9px]"></i> Share
+                    </button>
+                </div>
+
+                <!-- Card 1 (Center - Rank 1 Highlighted & Taller) -->
+                <div class="bg-slate-900 border-2 border-yellow-400 p-3.5 rounded-2xl flex flex-col items-center relative shadow-xl scale-105 z-10">
+                    <span class="absolute -top-3 bg-yellow-400 text-slate-950 text-sm font-black w-7 h-7 rounded-full flex items-center justify-center shadow-lg">1</span>
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-800 flex items-center justify-center mb-2 overflow-hidden shadow-md border border-purple-400/30">
+                        <span class="font-black text-yellow-300 text-[10px] text-center px-1">Teen Patti</span>
+                    </div>
+                    <h3 class="font-bold text-xs text-white truncate w-full text-center mb-1">Teen Patti ...</h3>
+                    <div class="flex items-center gap-1 text-xs text-yellow-400 font-bold mb-2">
+                        4.9 <i class="fa-solid fa-star text-[10px]"></i>
+                    </div>
+                    <div class="text-[10px] text-emerald-400 font-bold flex items-center gap-1 mb-3 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-500/20">
+                        <i class="fa-solid fa-check"></i> Verified
+                    </div>
+                    <a href="#download" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow-md shadow-emerald-600/30 mb-2 block text-center transition-transform active:scale-95">
+                        <i class="fa-solid fa-download mr-1"></i> Download
+                    </a>
+                    <button class="w-full py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-[10px] font-semibold flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-share-nodes text-[9px]"></i> Share
+                    </button>
+                </div>
+
+                <!-- Card 3 (Right - Rank 3) -->
+                <div class="bg-slate-900 border border-slate-800 p-3 rounded-2xl flex flex-col items-center relative shadow-lg">
+                    <span class="absolute -top-2.5 bg-amber-700 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center shadow">3</span>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mb-2 overflow-hidden shadow border border-slate-700">
+                        <span class="font-black text-purple-400 text-[10px]">PATTI</span>
+                    </div>
+                    <h3 class="font-bold text-[11px] text-white truncate w-full text-center mb-1">Teen Patti G...</h3>
+                    <div class="flex items-center gap-1 text-[11px] text-yellow-400 font-bold mb-2">
+                        4.7 <i class="fa-solid fa-star text-[9px]"></i>
+                    </div>
+                    <div class="text-[9px] text-emerald-400 font-bold flex items-center gap-1 mb-3 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-500/20">
+                        <i class="fa-solid fa-check"></i> Verified
+                    </div>
+                    <a href="#download" class="w-full py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-[10px] font-bold shadow mb-1.5 block text-center transition-transform active:scale-95">
+                        <i class="fa-solid fa-download mr-1"></i> Download
+                    </a>
+                    <button class="w-full py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-[8px] font-semibold flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-share-nodes text-[9px]"></i> Share
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 7: Footer & Sticky Bottom Action Bar -->
+    <footer class="bg-[#070a12] text-slate-400 py-10 px-5 pb-24 text-left border-t border-slate-800">
+        <div class="max-w-[480px] mx-auto">
+            
+            <!-- Brand & Description -->
+            <div class="flex items-center gap-2.5 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-black text-xs shadow">
+                    T
+                </div>
+                <h3 class="text-white text-lg font-black tracking-wide">TAURUS</h3>
+            </div>
+            
+            <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                Discover diverse earning methods on Taurus Cash APK, a mobile app offering tasks, skill-based games, and refer & earn programs. Join for a seamless income by completing daily tasks & earning commissions!
+            </p>
+
+            <!-- Social Media Icons Row -->
+            <div class="flex items-center gap-3 mb-8">
+                <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-sm shadow transition-transform active:scale-95">
+                    <i class="fa-solid fa-users"></i>
+                </a>
+                <a href="#" class="w-9 h-9 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-sm shadow transition-transform active:scale-95">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 text-white flex items-center justify-center text-sm shadow transition-transform active:scale-95">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-9 h-9 rounded-full bg-sky-500 hover:bg-sky-600 text-white flex items-center justify-center text-sm shadow transition-transform active:scale-95">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+                <a href="#" class="w-9 h-9 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center text-sm shadow transition-transform active:scale-95">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+
+            <!-- Download Taurus App Now Heading & White Badge -->
+            <div class="mb-8">
+                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Download Taurus app now!</h4>
+                <a href="#download" class="inline-block bg-white text-slate-900 py-2.5 px-4 rounded-xl shadow-lg font-bold text-xs hover:bg-slate-100 transition-transform active:scale-95">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-emerald-600 rounded flex items-center justify-center text-white text-xs">
+                            <i class="fa-solid fa-download"></i>
+                        </div>
+                        <div>
+                            <div class="font-black text-xs leading-tight">TAURUS</div>
+                            <div class="text-[9px] text-slate-500 font-semibold">Download APP</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- DMCA Badge -->
+            <div class="mb-8">
+                <div class="inline-block bg-slate-900 border border-slate-700 px-3 py-1 rounded text-[10px] font-bold text-slate-300">
+                    <span class="text-emerald-500">DMCA</span> PROTECTED
+                </div>
+            </div>
+
+            <!-- Footer Links Columns (2 Grid Layout) -->
+            <div class="grid grid-cols-2 gap-6 mb-8 text-xs">
+                <!-- Column 1: Ways for earning online -->
+                <div>
+                    <h5 class="text-white font-bold mb-3 text-sm">Ways for earning online</h5>
+                    <ul class="flex flex-col gap-2 text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Take Surveys</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Watch Videos</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Watch Ads</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Referral Programme</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Play Games</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Social media tasks</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Earn Money Typing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Tap to Earn</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Solving Captchas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Exclusive Guide -->
+                <div>
+                    <h5 class="text-white font-bold mb-3 text-sm">Exclusive Guide</h5>
+                    <ul class="flex flex-col gap-2 text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Online earning without investment</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Students earning money</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Earn money from home</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Earn part time</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Beginner's Guide</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Company Links Column -->
+            <div class="mb-4 text-xs">
+                <h5 class="text-white font-bold mb-3 text-sm">Company</h5>
+                <ul class="flex flex-col gap-2 text-slate-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Sticky Bottom Action Button (Fixed at Screen Bottom) -->
+    <div class="fixed bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-md p-3 border-t border-slate-800 z-50">
+        <div class="max-w-[480px] mx-auto flex items-center gap-3">
+            <a href="#download" class="flex-1 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-extrabold text-xs text-center shadow-lg shadow-orange-600/30 active:scale-95 transition-transform flex items-center justify-center gap-2">
+                <i class="fa-solid fa-download text-sm"></i> Download Taurus App
+            </a>
+        </div>
+    </div>
+
+    
+    <!-- 1. Clean Telegram Floating Button (Left or Right side as per preference) -->
+    <div class="fixed right-4 bottom-20 z-50">
+        <a href="https://t.me/yourtelegramchannel" target="_blank" class="w-12 h-12 bg-[#229ED9] hover:bg-[#1b8bc1] text-white rounded-full flex items-center justify-center shadow-2xl border-2 border-white text-2xl transition-transform active:scale-95">
+            <i class="fa-brands fa-telegram"></i>
+        </a>
+    </div>
+
+    <!-- 2. Join Game URL Button with ₹100 Bonus (Alag Button) -->
+    <div class="fixed left-4 bottom-20 z-50">
+        <a href="https://yourgameurl.com" target="_blank" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white py-2.5 px-4 rounded-full shadow-2xl border-2 border-white/80 font-bold text-xs transition-transform active:scale-95">
+            <div class="w-7 h-7 bg-white text-orange-600 rounded-full flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <div class="flex flex-col text-left leading-tight">
+                <span class="text-[10px] text-amber-100 font-semibold uppercase tracking-wider">Join Game</span>
+                <span class="text-xs font-black text-yellow-200">+₹100 Bonus</span>
+            </div>
+        </a>
+    </div>
+
+    
 
 
     <!-- JavaScript for Menu Toggle and Outside Click to Close -->
