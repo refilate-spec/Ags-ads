@@ -3,7 +3,7 @@ window.srink_postdata_games = [
     {
         name: "ABC RUMMY",
         category: "yono",
-        logo: "#",
+        logo: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEikzlHQO_AN9jYg1tJBa7hnG9tkVJQNQPbI7JZJ15PvZl2yrxLP5WJTmqmgmzFu2ajIpUO1fDPKW7eSXiUlfppO5LOY7-zxCDURpREOR7sHTm4pMe7dTHuS6kq6WfkzvpVyxAPCB7b0F7piSOxnINXW8gp9I4UAtxy2kqMvn1Fyz0pFo9IC4Aqy6xNgZNPo/s1600/ABC-Rummy.webp",
         ratink: "4.6",
         bonus: "₹350 Bonus",
         downloads: "15k+",
